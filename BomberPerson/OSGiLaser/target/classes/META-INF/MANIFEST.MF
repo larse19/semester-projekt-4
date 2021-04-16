@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-Description: Generated using Pax-Construct
+Bundle-SymbolicName: dk.sdu.mmmi.common
+Built-By: soulb
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1617801541897
+Import-Package: dk.sdu.mmmi.cbse.bullet;version="1.0.0.SNAPSHOT",dk.sd
+ u.mmmi.cbse.common.bullet;version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.c
+ ommon.data;version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.data.enti
+ typarts;version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.events;versi
+ on="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.services;version="1.0.0.S
+ NAPSHOT",dk.sdu.mmmi.cbse.laserweapon;version="1.0.0.SNAPSHOT",org.os
+ gi.framework
+Tool: Bnd-0.0.255
+Export-Package: dk.sdu.mmmi.cbse.common.data.entityparts;uses:="dk.sdu
+ .mmmi.cbse.common.data";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.com
+ mon.data;uses:="dk.sdu.mmmi.cbse.common.data.entityparts,dk.sdu.mmmi.
+ cbse.common.events";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.bullet;
+ version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.bullet;uses:="dk.sdu
+ .mmmi.cbse.common.data";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.com
+ mon.events;uses:="dk.sdu.mmmi.cbse.common.data";version="1.0.0.SNAPSH
+ OT",dk.sdu.mmmi.cbse.common.services;uses:="dk.sdu.mmmi.cbse.common.d
+ ata";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.laserweapon;uses:="org
+ .osgi.framework,dk.sdu.mmmi.cbse.common.data.entityparts,dk.sdu.mmmi.
+ cbse.common.data,dk.sdu.mmmi.cbse.common.bullet,dk.sdu.mmmi.cbse.comm
+ on.services";version="1.0.0.SNAPSHOT"
+Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: OSGiLaser
+Bundle-Activator: dk.sdu.mmmi.cbse.laserweapon.Activator
+Private-Package: dk.sdu.mmmi.internal.*
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0-272
+

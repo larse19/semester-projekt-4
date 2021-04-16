@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-Description: Generated using Pax-Construct
+Bundle-SymbolicName: dk.sdu.mmmi.common
+Built-By: soulb
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1617801530511
+Import-Package: dk.sdu.mmmi.cbse.common.asteroids,dk.sdu.mmmi.cbse.com
+ mon.data
+Tool: Bnd-0.0.255
+Export-Package: dk.sdu.mmmi.cbse.common.asteroids;uses:="dk.sdu.mmmi.c
+ bse.common.data"
+Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: OSGiCommonAsteroids
+Private-Package: dk.sdu.mmmi.internal.*
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0-272
+

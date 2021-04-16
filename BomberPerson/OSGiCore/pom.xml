@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <relativePath>../poms/compiled/</relativePath>
+        <groupId>dk.sdu.mmmi.build</groupId>
+        <artifactId>compiled-bundle-settings</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <bundle.symbolicName>dk.sdu.mmmi.core</bundle.symbolicName>
+        <bundle.namespace>dk.sdu.mmmi</bundle.namespace>
+    </properties>
+  
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>OSGiCore</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+
+    <name>OSGiCore</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>!dk.sdu.mmmi.internal.*,dk.sdu.mmmi.*;version="1.0-SNAPSHOT",dk.sdu.mmmi.cbse,dk.sdu.mmmi.cbse.core.managers</Export-Package>
+                        <Private-Package>dk.sdu.mmmi.cbse.*</Private-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>dk.sdu.mmmi.build</groupId>
+            <artifactId>OSGiCommon</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiLibGDX</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-modules</artifactId>
+            <version>RELEASE82</version>
+            <type>jar</type>
+        </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiPlayer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

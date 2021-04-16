@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-Description: Generated using Pax-Construct
+Bundle-SymbolicName: OSGiAsteroidSplitter
+Built-By: soulb
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1617801537228
+Bundle-ActivationPolicy: lazy
+Import-Package: dk.sdu.mmmi.cbse.common.asteroids;version="1.0.0.SNAPS
+ HOT",dk.sdu.mmmi.cbse.common.data;version="1.0.0.SNAPSHOT",dk.sdu.mmm
+ i.cbse.common.data.entityparts;version="1.0.0.SNAPSHOT",dk.sdu.mmmi.c
+ bse.common.events;version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.se
+ rvices;version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.osgiasteroidsplitter
+ .impl;version="1.0.0.SNAPSHOT"
+Service-Component: META-INF/asteroidsplitter.xml
+Tool: Bnd-0.0.255
+Export-Package: dk.sdu.mmmi.cbse.osgiasteroidsplitter.impl;uses:="dk.s
+ du.mmmi.cbse.common.data.entityparts,dk.sdu.mmmi.cbse.common.data,dk.
+ sdu.mmmi.cbse.common.asteroids";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.
+ cbse.common.data.entityparts;uses:="dk.sdu.mmmi.cbse.common.data";ver
+ sion="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.data;uses:="dk.sdu.mmmi
+ .cbse.common.data.entityparts,dk.sdu.mmmi.cbse.common.events";version
+ ="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.asteroids;uses:="dk.sdu.mmm
+ i.cbse.common.data";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.common.
+ events;uses:="dk.sdu.mmmi.cbse.common.data";version="1.0.0.SNAPSHOT",
+ dk.sdu.mmmi.cbse.common.services;uses:="dk.sdu.mmmi.cbse.common.data"
+ ;version="1.0.0.SNAPSHOT"
+Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: OSGiAsteroidSplitter
+Private-Package: dk.sdu.mmmi.internal.*
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0-272
+
