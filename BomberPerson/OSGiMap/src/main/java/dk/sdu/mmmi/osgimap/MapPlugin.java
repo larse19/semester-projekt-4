@@ -22,6 +22,9 @@ import com.badlogic.gdx.math.Vector3;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
@@ -32,12 +35,40 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author soulb
  */
-public class MapPlugin implements ApplicationListener  {
+public class MapPlugin implements ApplicationListener, IGamePluginService  {
 
     private ShapeRenderer sr;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+    
+    
+    @Override
+    public void start(GameData gameData, World world) {
+        Entity map = createMap(gameData);
+        world.addEntity(map);
+    }
+
+    @Override
+    public void stop(GameData gameData, World world) {
+        for (Entity map : world.getEntities(Map.class)) {
+            world.removeEntity(map);
+        }
+    }
+        
+    private Entity createMap(GameData gameData) {
+        Entity map = new Map();
+        
+//        float radians = (float) Math.random() * 2 * 3.1415f;
+//        float speed = (float) Math.random() * 10f + 20f;
+//        
+//        asteroid.setRadius(20);
+//        asteroid.add(new MovingPart(0, speed, speed, 0));
+//        asteroid.add(new PositionPart(30, 30, radians));
+//        asteroid.add(new LifePart(3));
+        
+        return map;
+    }
     
     @Override
     public void create() {
@@ -93,5 +124,6 @@ public class MapPlugin implements ApplicationListener  {
         renderer.dispose();
         sr.dispose();
     }
-    
+
+
 }
