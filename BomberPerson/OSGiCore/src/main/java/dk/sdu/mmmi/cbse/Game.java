@@ -34,9 +34,6 @@ public class Game implements ApplicationListener {
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera camera;
     
     public Game(){
         init();
@@ -55,30 +52,30 @@ public class Game implements ApplicationListener {
 
     @Override
     public void create() {
-//        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-//        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-//
-//        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-//        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-//        cam.update();
-//
-//        sr = new ShapeRenderer();
-//
-//        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
+        gameData.setDisplayWidth(Gdx.graphics.getWidth());
+        gameData.setDisplayHeight(Gdx.graphics.getHeight());
+
+        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
+        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
+        cam.update();
+
+        sr = new ShapeRenderer();
+
+        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
 
             //for finding files
 //        System.out.println(Gdx.files.internal("maps/mapforproject.tmx").file().getAbsolutePath());
         
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load("maps/mapforproject.tmx"); 
-
-        renderer = new OrthogonalTiledMapRenderer(map);
-        sr = new ShapeRenderer();
-            //sr.setColor(Color.CYAN);
-        Gdx.gl.glLineWidth(3);
-
-        camera = new OrthographicCamera();
+//        TmxMapLoader loader = new TmxMapLoader();
+//        map = loader.load("maps/mapforproject.tmx"); 
+//
+//        renderer = new OrthogonalTiledMapRenderer(map);
+//        sr = new ShapeRenderer();
+//            //sr.setColor(Color.CYAN);
+//        Gdx.gl.glLineWidth(3);
+//
+//        camera = new OrthographicCamera();
 
 //            //player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
 //            //player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
@@ -88,34 +85,34 @@ public class Game implements ApplicationListener {
 
     @Override
     public void render() {
-        // clear screen to black
-//        Gdx.gl.glClearColor(0, 0, 0, 1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        gameData.setDelta(Gdx.graphics.getDeltaTime());
-//        gameData.getKeys().update();
-//
-//        update();
-//        draw();
+//         clear screen to black
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        gameData.setDelta(Gdx.graphics.getDeltaTime());
+        gameData.getKeys().update();
+
+        update();
+        draw();
+
+//            Gdx.gl.glClearColor(0, 0, 0, 1);
+//            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
          
 //            cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
 //            cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
 //            cam.update();
 
-            TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-            Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
-            camera.position.set(center);
+//            TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+//            Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
+//            camera.position.set(center);
             
             //camera.position.set(player.getWidth(), player.getHeight(), 0);
 
-            camera.update();            
-
-            renderer.setView(camera);
-
-            renderer.render();
+//            camera.update();            
+//
+//            renderer.setView(camera);
+//
+//            renderer.render();
 //
 //            renderer.getBatch().begin();
 //            player.draw(renderer.getBatch());
@@ -136,30 +133,28 @@ public class Game implements ApplicationListener {
         }
     }
 
-//    private void draw() {
-//        for (Entity entity : world.getEntities()) {
-//            sr.setColor(1, 1, 1, 1);
-//
-//            sr.begin(ShapeRenderer.ShapeType.Line);
-//
-//            float[] shapex = entity.getShapeX();
-//            float[] shapey = entity.getShapeY();
-//
-//            for (int i = 0, j = shapex.length - 1;
-//                    i < shapex.length;
-//                    j = i++) {
-//
-//                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-//            }
-//
-//            sr.end();
-//        }
-//    }
+    private void draw() {
+        for (Entity entity : world.getEntities()) {
+            sr.setColor(1, 1, 1, 1);
+
+            sr.begin(ShapeRenderer.ShapeType.Line);
+
+            float[] shapex = entity.getShapeX();
+            float[] shapey = entity.getShapeY();
+
+            for (int i = 0, j = shapex.length - 1;
+                    i < shapex.length;
+                    j = i++) {
+
+                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+            }
+
+            sr.end();
+        }
+    }
 
     @Override
     public void resize(int width, int height) {
-	camera.viewportWidth = width;
-	camera.viewportHeight = height;    
     }
 
     @Override
@@ -176,9 +171,6 @@ public class Game implements ApplicationListener {
 
     @Override
     public void dispose() { 
-        map.dispose();
-        renderer.dispose();
-        sr.dispose();
     }
 
     public void addEntityProcessingService(IEntityProcessingService eps) {
