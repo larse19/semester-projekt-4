@@ -60,5 +60,10 @@
             <version>RELEASE82</version>
             <type>jar</type>
         </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiPlayer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

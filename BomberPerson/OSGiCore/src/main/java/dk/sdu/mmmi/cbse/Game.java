@@ -103,8 +103,7 @@ public class Game implements ApplicationListener {
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
-
-
+        
         //TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
         //Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
         //cam.position.set(center);
@@ -125,13 +124,12 @@ public class Game implements ApplicationListener {
         
         batch.begin();
         for (Entity entity : world.getEntities()) {
-            if(entity.getSprite() == null){
-                PositionPart pp = entity.getPart(PositionPart.class);
-                //entity.setSprite(new Sprite(new Texture(entity.getSpriteLocation()), (int)pp.getX(), (int)pp.getY(), entity.getSpriteWidth(), entity.getSpriteHeight()));
-                entity.setSprite(new Sprite(new Texture(entity.getSpriteLocation())));
+            try{
+                entity.getSprite().draw(batch);
+            }catch(NullPointerException e){
+                entity.create();
             }
             
-            entity.getSprite().draw(batch);
 
         }
         batch.end();
@@ -203,6 +201,10 @@ public class Game implements ApplicationListener {
     
     public void hide() {
        dispose();
+    }
+
+    public static World getWorld() {
+        return world;
     }
 
     @Override
