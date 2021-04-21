@@ -28,14 +28,15 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
-import dk.sdu.mmmi.cbse.core.managers.GameInputProcessor;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import dk.sdu.mmmi.cbse.common.data.WorldMap;
+
 /**
  *
  * @author soulb
  */
-public class MapPlugin implements ApplicationListener, IGamePluginService  {
+public class MapPlugin implements IGamePluginService  {
 
     private ShapeRenderer sr;
     private TiledMap map;
@@ -44,12 +45,14 @@ public class MapPlugin implements ApplicationListener, IGamePluginService  {
     
     @Override
     public void start(GameData gameData, World world) {
-
+        WorldMap map = new ClassicMap();
+        world.setWorldMap(map);
+        System.out.println("helooo");
     }
 
     @Override
     public void stop(GameData gameData, World world) {
-
+        world.setWorldMap(null);
     }
         
 //    private TiledMap createMap(GameData gameData) {
@@ -67,7 +70,7 @@ public class MapPlugin implements ApplicationListener, IGamePluginService  {
 //        return map;
 //    }
     
-    @Override
+    //@Override
     public void create() {
         map = new TiledMap();
         
@@ -81,7 +84,7 @@ public class MapPlugin implements ApplicationListener, IGamePluginService  {
         camera = new OrthographicCamera();
     }
 
-    @Override
+    //@Override
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -103,21 +106,21 @@ public class MapPlugin implements ApplicationListener, IGamePluginService  {
         renderer.render();
     }
     
-    @Override
+    //@Override
     public void resize(int width, int height) {
 	camera.viewportWidth = width;
 	camera.viewportHeight = height;    
     }
 
-    @Override
+    //@Override
     public void pause() {
     }
 
-    @Override
+    //@Override
     public void resume() {
     }
 
-    @Override
+    //@Override
     public void dispose() {
         map.dispose();
         renderer.dispose();

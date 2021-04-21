@@ -45,11 +45,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>dk.sdu.mmmi.build</groupId>
-            <artifactId>OSGiCommon</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>OSGiLibGDX</artifactId>
             <version>${project.version}</version>
@@ -59,16 +54,16 @@
             <artifactId>OSGiMap</artifactId>
             <version>${project.version}</version>
         </dependency>-->
-       <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>OSGiPlayer</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 <!--        <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-modules</artifactId>
             <version>RELEASE82</version>
             <type>jar</type>
         </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiCommon</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
