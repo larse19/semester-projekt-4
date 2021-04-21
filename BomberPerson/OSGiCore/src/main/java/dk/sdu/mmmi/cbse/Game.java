@@ -36,9 +36,10 @@ public class Game implements ApplicationListener {
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera camera;
+
+    //private TiledMap map;
+    //private OrthogonalTiledMapRenderer renderer;
+    //private OrthographicCamera camera;
     private SpriteBatch batch;
     
     public Game(){
@@ -60,6 +61,7 @@ public class Game implements ApplicationListener {
     public void create() {
         gameData.setDisplayWidth(Gdx.graphics.getWidth());
         gameData.setDisplayHeight(Gdx.graphics.getHeight());
+
 //
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
@@ -68,18 +70,22 @@ public class Game implements ApplicationListener {
         sr = new ShapeRenderer();
         batch = new SpriteBatch();
 //
+
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
 
             //for finding files
 //        System.out.println(Gdx.files.internal("maps/mapforproject.tmx").file().getAbsolutePath());
         
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load("maps/mapforproject.tmx"); 
 
-        renderer = new OrthogonalTiledMapRenderer(map);
-            //sr.setColor(Color.CYAN);
-        Gdx.gl.glLineWidth(3);
+//        TmxMapLoader loader = new TmxMapLoader();
+//        map = loader.load("maps/mapforproject.tmx"); 
+//
+//        renderer = new OrthogonalTiledMapRenderer(map);
+//        sr = new ShapeRenderer();
+//            //sr.setColor(Color.CYAN);
+//        Gdx.gl.glLineWidth(3);
+//
 
 //        camera = new OrthographicCamera();
 
@@ -98,17 +104,18 @@ public class Game implements ApplicationListener {
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
 
-        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-        Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
-        cam.position.set(center);
+
+        //TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+        //Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
+        //cam.position.set(center);
 
         //camera.position.set(player.getWidth(), player.getHeight(), 0);
 
-        cam.update();            
+        //cam.update();            
 
-        renderer.setView(cam);
+        //renderer.setView(cam);
 
-        renderer.render();
+        //renderer.render();
         
 //        Sprite sprite = new Sprite(new Texture("img/88874.png"), 0, 0, 20, 22);
 //        sprite.setPosition(300, 300);
@@ -131,6 +138,7 @@ public class Game implements ApplicationListener {
         
         update();
         //draw();
+
 //
 //            renderer.getBatch().begin();
 //            player.draw(renderer.getBatch());
@@ -175,14 +183,14 @@ public class Game implements ApplicationListener {
             sprite.draw(batch);
         }
         batch.end();
-        
-        
     }
 
     @Override
     public void resize(int width, int height) {
-	cam.viewportWidth = width;
-	cam.viewportHeight = height;    
+
+	//cam.viewportWidth = width;
+	//cam.viewportHeight = height;    
+
     }
 
     @Override
@@ -199,9 +207,6 @@ public class Game implements ApplicationListener {
 
     @Override
     public void dispose() { 
-        map.dispose();
-        renderer.dispose();
-        sr.dispose();
     }
 
     public void addEntityProcessingService(IEntityProcessingService eps) {
