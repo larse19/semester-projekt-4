@@ -100,8 +100,8 @@ public class MovingPart implements EntityPart {
             dy -= maxSpeed * dt;
         }
         
-        x = Floats.constrainToRange(x + dx, 0, gameData.getDisplayWidth());
-        y = Floats.constrainToRange(y + dy, 0, gameData.getDisplayHeight());
+        x = Floats.constrainToRange(x + dx, 0, 600-22);
+        y = Floats.constrainToRange(y + dy, 0, 600-20);
         
         dx = 0;
         dy = 0;

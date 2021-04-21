@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.WorldMap;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -38,7 +39,7 @@ public class Game implements ApplicationListener {
 
 
     //private TiledMap map;
-    //private OrthogonalTiledMapRenderer renderer;
+//    private OrthogonalTiledMapRenderer renderer;
     //private OrthographicCamera camera;
     private SpriteBatch batch;
     
@@ -54,7 +55,7 @@ public class Game implements ApplicationListener {
         cfg.useGL30 = false;
         cfg.resizable = false;
 
-        new LwjglApplication(this, cfg);
+       new LwjglApplication(this, cfg);
     }
 
     @Override
@@ -104,18 +105,25 @@ public class Game implements ApplicationListener {
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
         
-        //TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-        //Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
-        //cam.position.set(center);
+        WorldMap worldMap = world.getWorldMap();    
+        try {
+            TiledMapTileLayer layer0 = (TiledMapTileLayer) worldMap.getMap().getLayers().get(0);
+           
+            
+            Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
+            cam.position.set(center);
 
-        //camera.position.set(player.getWidth(), player.getHeight(), 0);
+            //camera.position.set(player.getWidth(), player.getHeight(), 0);
 
-        //cam.update();            
+            cam.update();             
 
-        //renderer.setView(cam);
+            worldMap.getRenderer().setView(cam);
 
-        //renderer.render();
-        
+            worldMap.getRenderer().render();
+        }
+        catch (NullPointerException e) {
+            worldMap.create();
+        }
 //        Sprite sprite = new Sprite(new Texture("img/88874.png"), 0, 0, 20, 22);
 //        sprite.setPosition(300, 300);
 //        batch.begin();
