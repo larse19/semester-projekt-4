@@ -42,39 +42,38 @@ public class MapPlugin implements ApplicationListener, IGamePluginService  {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     
-    
     @Override
     public void start(GameData gameData, World world) {
-        Entity map = createMap(gameData);
-        world.addEntity(map);
+
     }
 
     @Override
     public void stop(GameData gameData, World world) {
-        for (Entity map : world.getEntities(Map.class)) {
-            world.removeEntity(map);
-        }
+
     }
         
-    private Entity createMap(GameData gameData) {
-        Entity map = new Map();
-        
-//        float radians = (float) Math.random() * 2 * 3.1415f;
-//        float speed = (float) Math.random() * 10f + 20f;
+//    private TiledMap createMap(GameData gameData) {
+//        TiledMap map = new TiledMap();
 //        
-//        asteroid.setRadius(20);
-//        asteroid.add(new MovingPart(0, speed, speed, 0));
-//        asteroid.add(new PositionPart(30, 30, radians));
-//        asteroid.add(new LifePart(3));
-        
-        return map;
-    }
+//        TmxMapLoader loader = new TmxMapLoader();
+//        map = loader.load("maps/mapforproject.tmx"); 
+//        
+//        renderer = new OrthogonalTiledMapRenderer(map);
+//        sr = new ShapeRenderer();
+//        Gdx.gl.glLineWidth(3);
+//
+//        camera = new OrthographicCamera();
+//       
+//        return map;
+//    }
     
     @Override
     public void create() {
+        map = new TiledMap();
+        
         TmxMapLoader loader = new TmxMapLoader();
         map = loader.load("maps/mapforproject.tmx"); 
-
+        
         renderer = new OrthogonalTiledMapRenderer(map);
         sr = new ShapeRenderer();
         Gdx.gl.glLineWidth(3);
@@ -95,7 +94,7 @@ public class MapPlugin implements ApplicationListener, IGamePluginService  {
         Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
         camera.position.set(center);
             
-            //camera.position.set(player.getWidth(), player.getHeight(), 0);
+        //camera.position.set(player.getWidth(), player.getHeight(), 0);
 
         camera.update();            
 

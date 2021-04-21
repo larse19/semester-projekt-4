@@ -55,6 +55,16 @@
             <version>${project.version}</version>
         </dependency>
 <!--        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiMap</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+       <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiPlayer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+<!--        <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-modules</artifactId>
             <version>RELEASE82</version>

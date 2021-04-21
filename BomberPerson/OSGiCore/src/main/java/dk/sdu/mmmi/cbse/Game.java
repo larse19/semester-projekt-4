@@ -54,7 +54,7 @@ public class Game implements ApplicationListener {
         cfg.useGL30 = false;
         cfg.resizable = false;
 
-        new LwjglApplication(this, cfg);
+       new LwjglApplication(this, cfg);
     }
 
     @Override
