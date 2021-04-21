@@ -32,33 +32,58 @@ public class PlayerPlugin implements IGamePluginService {
     private Vector2 velocity = new Vector2();
     private Entity player;
     
-    private float speed = 60 * 2;
-    private float gravity = 60 * 1.8f;
+    private final float speed = 50;
     private float increment;
     private TiledMap map;
     private AssetManager assetManager;
+    private World world;
     
     private TiledMapTileLayer collisionLayer;
+    private SpriteBatch batch;
     
     private String blockedKey = "blocked";
 
     @Override
     public void start(GameData gameData, World world) {
         // Add entities to the world
-        player = createPlayer(gameData);
+        //create();
+        //this.world = world;
+        
+        player = new Player();
+        
+        player.add(new PositionPart(300, 300));
+        player.add(new MovingPart(speed));
+        
         playerID = world.addEntity(player);
     }
+    /*
+    @Override
+    public void create(){
+        System.out.println("create");
+        player = new Player();
+        
+        player.add(new PositionPart(300, 300));
+        player.add(new MovingPart(speed));
 
+        player.setSprite(new Sprite(new Texture("png/playerSprite.png"), 0, 0, 22, 20));
+        
+        batch = new SpriteBatch();
+    }
+    
+    @Override
+    public void render(){
+        System.out.println("hello?");
+        batch.begin();
+        player.getSprite().draw(batch);
+        batch.end();
+    }
+*/
     private Entity createPlayer(GameData gameData) {
 
 
 //        player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
 //        player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
-        float speed = 50;
-
-        Entity player = new Player();
-          
-          
+        player = new Player();
           
         player.add(new PositionPart(gameData.getDisplayWidth()/2, gameData.getDisplayHeight()/2));
         player.add(new MovingPart(speed));

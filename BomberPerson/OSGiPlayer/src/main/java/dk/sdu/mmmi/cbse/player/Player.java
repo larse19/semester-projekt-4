@@ -5,9 +5,16 @@
  */
 package dk.sdu.mmmi.cbse.player;
 
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 
 /**
  *
@@ -15,17 +22,18 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
  */
 
 
-public class Player extends Entity {
+public class Player extends Entity{
        
-    private TiledMapTileLayer collisionLayer;
-    
-        // constructor
-    public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
-//        super(sprite);
-        this.collisionLayer = collisionLayer;
-    }
+    private GameData gameData;
+    private World world;
     
     public Player(){
         
     }
+    
+    @Override
+    public void create(){
+        this.setSprite(new Sprite(new Texture("img/playerSprite.png"), 0, 0, 22, 20));
+    }
+   
 }
