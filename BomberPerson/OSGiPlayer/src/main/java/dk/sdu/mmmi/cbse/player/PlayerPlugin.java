@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.player;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -15,27 +16,27 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import static com.badlogic.gdx.math.MathUtils.map;
-import dk.sdu.mmmi.cbse.player.Player;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
-public class PlayerPlugin extends Sprite implements IGamePluginService, InputProcessor {
+public class PlayerPlugin implements IGamePluginService {
 
     private String playerID;
     private Vector2 velocity = new Vector2();
+    private Entity player;
     
     private float speed = 60 * 2;
     private float gravity = 60 * 1.8f;
     private float increment;
     private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera camera;
+    private AssetManager assetManager;
     
     private TiledMapTileLayer collisionLayer;
     
@@ -44,33 +45,31 @@ public class PlayerPlugin extends Sprite implements IGamePluginService, InputPro
     @Override
     public void start(GameData gameData, World world) {
         // Add entities to the world
-        Entity player = createPlayerShip(gameData);
+        player = createPlayer(gameData);
         playerID = world.addEntity(player);
     }
-    
-    // constructor
-//    public PlayerPlugin(Sprite sprite, TiledMapTileLayer collisionLayer) {
-//        super(sprite);
-//        this.collisionLayer = collisionLayer;
-//    }
 
-    private Entity createPlayerShip(GameData gameData) {
+    private Entity createPlayer(GameData gameData) {
 
 
 //        player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
 //        player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
-//
-//        float deacceleration = 10;
-//        float acceleration = 200;
-//        float maxSpeed = 300;
-//        float rotationSpeed = 5;
-//        float x = gameData.getDisplayWidth() / 2;
-//        float y = gameData.getDisplayHeight() / 2;
-//        float radians = 3.1415f / 2;
-//
-//
+        float speed = 50;
 
-        Entity player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
+        Entity player = new Player();
+          
+          
+          
+        player.add(new PositionPart(gameData.getDisplayWidth()/2, gameData.getDisplayHeight()/2));
+        player.add(new MovingPart(speed));
+
+        //player.setSprite(new Sprite(assetManager.get("resource img/playerSprite.png", Texture.class)));
+        //player.setSprite(new Sprite(new Texture("./playerSprite.png")));
+        player.setSpriteLocation("img/88874.png");
+        player.setSpriteWidth(22);
+        player.setSpriteHeight(20);
+
+        //Entity player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
         //player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
 //        playerShip.setRadius(8);
 //        playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
@@ -87,6 +86,7 @@ public class PlayerPlugin extends Sprite implements IGamePluginService, InputPro
 //        renderer.getBatch().begin();
 //        player.draw(renderer.getBatch());
 //        renderer.getBatch().end();
+            
 //
         return player;
     }
@@ -94,9 +94,14 @@ public class PlayerPlugin extends Sprite implements IGamePluginService, InputPro
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
+        //assetManager.dispose();
         world.removeEntity(playerID);
     }
+  
     
+    
+    
+    /*
     @Override
     public void draw(Batch batch) {
         update(Gdx.graphics.getDeltaTime());
@@ -334,6 +339,6 @@ public class PlayerPlugin extends Sprite implements IGamePluginService, InputPro
 
     public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
         this.collisionLayer = collisionLayer;
-    }
+    }*/
 }
 

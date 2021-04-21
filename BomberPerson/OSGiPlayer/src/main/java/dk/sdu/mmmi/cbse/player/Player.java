@@ -24,4 +24,8 @@ public class Player extends Entity {
 //        super(sprite);
         this.collisionLayer = collisionLayer;
     }
+    
+    public Player(){
+        
+    }
 }

@@ -5,6 +5,7 @@
  */
 package dk.sdu.mmmi.cbse.common.data.entityparts;
 
+import com.google.common.primitives.Floats;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import static java.lang.Math.cos;
@@ -20,13 +21,17 @@ public class MovingPart implements EntityPart {
     private float dx, dy;
     private float deceleration, acceleration;
     private float maxSpeed, rotationSpeed;
-    private boolean left, right, up;
+    private boolean left, right, up, down;
 
     public MovingPart(float deceleration, float acceleration, float maxSpeed, float rotationSpeed) {
         this.deceleration = deceleration;
         this.acceleration = acceleration;
         this.maxSpeed = maxSpeed;
         this.rotationSpeed = rotationSpeed;
+    }
+    
+    public MovingPart(float speed){
+        this.maxSpeed = speed;
     }
 
     public float getDx() {
@@ -70,6 +75,43 @@ public class MovingPart implements EntityPart {
         this.up = up;
     }
 
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+    
+    
+    @Override
+    public void process(GameData gameData, Entity entity){
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        float x = positionPart.getX();
+        float y = positionPart.getY();
+        float dt = gameData.getDelta();
+        
+        if(left){
+            dx -= maxSpeed * dt;
+        }
+        if(right){
+            dx += maxSpeed * dt;
+        }
+        if(up){
+            dy += maxSpeed * dt;
+        }
+        if(down){
+            dy -= maxSpeed * dt;
+        }
+        
+        x = Floats.constrainToRange(x + dx, 0, gameData.getDisplayWidth());
+        y = Floats.constrainToRange(y + dy, 0, gameData.getDisplayHeight());
+        
+        dx = 0;
+        dy = 0;
+        
+        positionPart.setX(x);
+        positionPart.setY(y);
+
+    }
+    
+    /*
     @Override
     public void process(GameData gameData, Entity entity) {
         PositionPart positionPart = entity.getPart(PositionPart.class);
@@ -126,5 +168,6 @@ public class MovingPart implements EntityPart {
 
         positionPart.setRadians(radians);
     }
+*/
 
 }
