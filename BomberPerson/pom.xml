@@ -66,6 +66,7 @@
             
     <module>OSGiCommon</module>
     <module>OSGiLibGDX</module>
+    <module>OSGiPlayer</module>
   </modules>
       
   <build>

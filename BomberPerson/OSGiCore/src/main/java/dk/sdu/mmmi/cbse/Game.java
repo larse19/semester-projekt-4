@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
@@ -37,6 +39,7 @@ public class Game implements ApplicationListener {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+    private SpriteBatch batch;
     
     public Game(){
         init();
@@ -55,16 +58,17 @@ public class Game implements ApplicationListener {
 
     @Override
     public void create() {
-//        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-//        gameData.setDisplayHeight(Gdx.graphics.getHeight());
+        gameData.setDisplayWidth(Gdx.graphics.getWidth());
+        gameData.setDisplayHeight(Gdx.graphics.getHeight());
 //
-//        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-//        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-//        cam.update();
+        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
+        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
+        cam.update();
 //
-//        sr = new ShapeRenderer();
+        sr = new ShapeRenderer();
+        batch = new SpriteBatch();
 //
-//        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
+        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
 
             //for finding files
@@ -74,11 +78,10 @@ public class Game implements ApplicationListener {
         map = loader.load("maps/mapforproject.tmx"); 
 
         renderer = new OrthogonalTiledMapRenderer(map);
-        sr = new ShapeRenderer();
             //sr.setColor(Color.CYAN);
         Gdx.gl.glLineWidth(3);
 
-        camera = new OrthographicCamera();
+//        camera = new OrthographicCamera();
 
 //            //player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
 //            //player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
@@ -88,34 +91,46 @@ public class Game implements ApplicationListener {
 
     @Override
     public void render() {
-        // clear screen to black
-//        Gdx.gl.glClearColor(0, 0, 0, 1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        gameData.setDelta(Gdx.graphics.getDeltaTime());
-//        gameData.getKeys().update();
-//
-//        update();
-//        draw();
+//         clear screen to black
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-         
-//            cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-//            cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-//            cam.update();
+        gameData.setDelta(Gdx.graphics.getDeltaTime());
+        gameData.getKeys().update();
 
-            TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-            Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
-            camera.position.set(center);
+        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+        Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
+        cam.position.set(center);
+
+        //camera.position.set(player.getWidth(), player.getHeight(), 0);
+
+        cam.update();            
+
+        renderer.setView(cam);
+
+        renderer.render();
+        
+//        Sprite sprite = new Sprite(new Texture("img/88874.png"), 0, 0, 20, 22);
+//        sprite.setPosition(300, 300);
+//        batch.begin();
+//        sprite.draw(batch);
+//        batch.end();
+        
+        batch.begin();
+        for (Entity entity : world.getEntities()) {
+            if(entity.getSprite() == null){
+                PositionPart pp = entity.getPart(PositionPart.class);
+                //entity.setSprite(new Sprite(new Texture(entity.getSpriteLocation()), (int)pp.getX(), (int)pp.getY(), entity.getSpriteWidth(), entity.getSpriteHeight()));
+                entity.setSprite(new Sprite(new Texture(entity.getSpriteLocation())));
+            }
             
-            //camera.position.set(player.getWidth(), player.getHeight(), 0);
+            entity.getSprite().draw(batch);
 
-            camera.update();            
-
-            renderer.setView(camera);
-
-            renderer.render();
+        }
+        batch.end();
+        
+        update();
+        //draw();
 //
 //            renderer.getBatch().begin();
 //            player.draw(renderer.getBatch());
@@ -136,8 +151,9 @@ public class Game implements ApplicationListener {
         }
     }
 
-//    private void draw() {
-//        for (Entity entity : world.getEntities()) {
+    private void draw() {
+        batch.begin();
+        for (Entity entity : world.getEntities()) {
 //            sr.setColor(1, 1, 1, 1);
 //
 //            sr.begin(ShapeRenderer.ShapeType.Line);
@@ -153,13 +169,20 @@ public class Game implements ApplicationListener {
 //            }
 //
 //            sr.end();
-//        }
-//    }
+            //entity.getSprite().draw(batch);
+            Sprite sprite = new Sprite(new Texture("img/88874.png"), 0, 0, 20, 22);
+            sprite.setPosition(300, 300);
+            sprite.draw(batch);
+        }
+        batch.end();
+        
+        
+    }
 
     @Override
     public void resize(int width, int height) {
-	camera.viewportWidth = width;
-	camera.viewportHeight = height;    
+	cam.viewportWidth = width;
+	cam.viewportHeight = height;    
     }
 
     @Override

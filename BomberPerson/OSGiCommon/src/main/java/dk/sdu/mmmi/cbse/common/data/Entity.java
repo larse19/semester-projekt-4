@@ -8,13 +8,41 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Entity extends Sprite implements Serializable {
+public class Entity implements Serializable {
     private final UUID ID = UUID.randomUUID();
 
     private float[] shapeX = new float[4];
     private float[] shapeY = new float[4];
     private float radius;
     private Map<Class, EntityPart> parts;
+    private Sprite sprite;
+    private int spriteWidth;
+    private int spriteHeight;
+
+    public int getSpriteWidth() {
+        return spriteWidth;
+    }
+
+    public void setSpriteWidth(int spriteWidth) {
+        this.spriteWidth = spriteWidth;
+    }
+
+    public int getSpriteHeight() {
+        return spriteHeight;
+    }
+
+    public void setSpriteHeight(int spriteHeight) {
+        this.spriteHeight = spriteHeight;
+    }
+    private String SpriteLocation;
+
+    public void setSpriteLocation(String SpriteLocation) {
+        this.SpriteLocation = SpriteLocation;
+    }
+
+    public String getSpriteLocation() {
+        return SpriteLocation;
+    }
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
@@ -58,6 +86,14 @@ public class Entity extends Sprite implements Serializable {
 
     public void setShapeY(float[] shapeY) {
         this.shapeY = shapeY;
+    }
+    
+    public void setSprite(Sprite sprite){
+        this.sprite = sprite;
+    }
+    
+    public Sprite getSprite(){
+        return this.sprite;
     }
 
 }
