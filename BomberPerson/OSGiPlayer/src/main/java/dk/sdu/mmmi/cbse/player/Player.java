@@ -5,22 +5,16 @@
  */
 package dk.sdu.mmmi.cbse.player;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 
 /**
  *
  * @author Emil
  */
-
 
 public class Player extends Entity{
        
@@ -28,7 +22,6 @@ public class Player extends Entity{
     private World world;
     
     public Player(){
-        
     }
     
     @Override

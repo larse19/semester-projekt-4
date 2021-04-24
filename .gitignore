@@ -3,3 +3,7 @@
 /BomberPerson/OSGiPlayer/target/
 /BomberPerson/OSGiMap/target/
 /BomberPerson/OSGICore/target
+/BomberPerson/OSGICommonBomb/target/
+/BomberPerson/OSGiBomb/target/
+/BomberPerson/CommonExplosion/target/
+/BomberPerson/Explosion/target/
