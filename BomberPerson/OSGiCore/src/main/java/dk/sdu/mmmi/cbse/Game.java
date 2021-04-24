@@ -37,7 +37,6 @@ public class Game implements ApplicationListener {
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 
-
     //private TiledMap map;
 //    private OrthogonalTiledMapRenderer renderer;
     //private OrthographicCamera camera;
@@ -50,8 +49,8 @@ public class Game implements ApplicationListener {
     public void init() {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "BomberPerson";
-        cfg.width = 600;
-        cfg.height = 600;
+        cfg.width = 19*32;
+        cfg.height = 19*32;
         cfg.useGL30 = false;
         cfg.resizable = false;
 
@@ -124,12 +123,7 @@ public class Game implements ApplicationListener {
         catch (NullPointerException e) {
             worldMap.create();
         }
-//        Sprite sprite = new Sprite(new Texture("img/88874.png"), 0, 0, 20, 22);
-//        sprite.setPosition(300, 300);
-//        batch.begin();
-//        sprite.draw(batch);
-//        batch.end();
-        
+
         batch.begin();
         for (Entity entity : world.getEntities()) {
             try{
@@ -137,8 +131,6 @@ public class Game implements ApplicationListener {
             }catch(NullPointerException e){
                 entity.create();
             }
-            
-
         }
         batch.end();
         

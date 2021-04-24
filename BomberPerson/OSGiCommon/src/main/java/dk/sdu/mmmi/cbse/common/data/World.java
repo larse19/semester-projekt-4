@@ -44,6 +44,7 @@ public class World {
         List<Entity> r = new ArrayList<>();
         for (Entity e : getEntities()) {
             for (Class<E> entityType : entityTypes) {
+                //System.out.println(entityType + " : " + e.getClass() + " : " + entityType.equals(e.getClass()));
                 if (entityType.equals(e.getClass())) {
                     r.add(e);
                 }

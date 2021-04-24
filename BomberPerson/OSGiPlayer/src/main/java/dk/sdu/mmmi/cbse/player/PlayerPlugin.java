@@ -1,27 +1,9 @@
 package dk.sdu.mmmi.cbse.player;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import static com.badlogic.gdx.math.MathUtils.map;
-import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -33,51 +15,25 @@ public class PlayerPlugin implements IGamePluginService {
     private Entity player;
     
     private final float speed = 50;
-    private float increment;
-    private TiledMap map;
-    private AssetManager assetManager;
-    private World world;
-    
-    private TiledMapTileLayer collisionLayer;
-    private SpriteBatch batch;
     
     private String blockedKey = "blocked";
 
     @Override
     public void start(GameData gameData, World world) {
-        // Add entities to the world
-        //create();
-        //this.world = world;
-        
         player = new Player();
-        
         player.add(new PositionPart(300, 300));
         player.add(new MovingPart(speed));
-        
+        System.out.println("player created");
         playerID = world.addEntity(player);
     }
-    /*
-    @Override
-    public void create(){
-        System.out.println("create");
-        player = new Player();
-        
-        player.add(new PositionPart(300, 300));
-        player.add(new MovingPart(speed));
 
-        player.setSprite(new Sprite(new Texture("png/playerSprite.png"), 0, 0, 22, 20));
-        
-        batch = new SpriteBatch();
-    }
-    
     @Override
-    public void render(){
-        System.out.println("hello?");
-        batch.begin();
-        player.getSprite().draw(batch);
-        batch.end();
+    public void stop(GameData gameData, World world) {
+        // Remove entities
+        //assetManager.dispose();
+        world.removeEntity(playerID);
     }
-*/
+  /*
     private Entity createPlayer(GameData gameData) {
 
 
@@ -114,16 +70,7 @@ public class PlayerPlugin implements IGamePluginService {
             
 //
         return player;
-    }
-
-    @Override
-    public void stop(GameData gameData, World world) {
-        // Remove entities
-        //assetManager.dispose();
-        world.removeEntity(playerID);
-    }
-  
-    
+    }*/
     
     
     /*
