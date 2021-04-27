@@ -23,6 +23,12 @@ public class LifePart implements EntityPart {
         timerPart = new TimerPart(invincibilyTime);
         this.life = life;
     }
+    
+    public LifePart(int life, float invincibilyTime){
+        this.invincibilyTime = invincibilyTime;
+        timerPart = new TimerPart(invincibilyTime);
+        this.life = life;
+    }
 
     public int getLife() {
         return life;
@@ -46,9 +52,7 @@ public class LifePart implements EntityPart {
 
     public void damage(int damage){
         if(timerPart.getExpiration() <= 0){
-            System.out.println("oof");
             life -= damage;
-            System.out.println(life);
             timerPart.setExpiration(invincibilyTime);
         }
         

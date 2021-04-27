@@ -15,7 +15,7 @@ public class PlayerPlugin implements IGamePluginService {
     private Vector2 velocity = new Vector2();
     private Entity player;
     
-    private final float speed = 50;
+    private final float speed = 80;
     
     private String blockedKey = "blocked";
 
