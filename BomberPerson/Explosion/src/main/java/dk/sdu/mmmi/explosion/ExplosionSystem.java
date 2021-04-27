@@ -9,7 +9,7 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.TimerPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.commonexplosion.Explosion;
 import dk.sdu.mmmi.commonexplosion.ExplosionSPI;
-
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class ExplosionSystem implements IEntityProcessingService, ExplosionSPI{
 
@@ -21,7 +21,20 @@ public class ExplosionSystem implements IEntityProcessingService, ExplosionSPI{
             if(tp.getExpiration()<=0){
                 world.removeEntity(explosion);
             }
+            
+            // Blow up walls
+            PositionPart positionPart = explosion.getPart(PositionPart.class);
+            TiledMapTileLayer layer = (TiledMapTileLayer) world.getWorldMap().getMap().getLayers().get("Walls");
+            if(isCellDestructable(positionPart.getX(), positionPart.getY(), layer)){
+                layer.setCell((int)positionPart.getX() / 32, (int)positionPart.getY() / 32, null);
+            }   
+
         }
+    }
+    
+    private boolean isCellDestructable(float x, float y, TiledMapTileLayer collisionLayer) {
+	TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
+	return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("destructable");       
     }
 
     @Override

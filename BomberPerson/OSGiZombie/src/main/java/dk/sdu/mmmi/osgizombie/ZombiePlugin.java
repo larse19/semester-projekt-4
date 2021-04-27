@@ -24,7 +24,6 @@ public class ZombiePlugin implements IGamePluginService{
     @Override
     public void start(GameData gameData, World world) {
         Entity zombie = new Enemy();
-        
         zombie.add(new PositionPart(32, 32));
         zombie.add(new LifePart(1));
         zombie.add(new DamagePart(2));
@@ -35,7 +34,9 @@ public class ZombiePlugin implements IGamePluginService{
 
     @Override
     public void stop(GameData gameData, World world) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(Entity zombie : world.getEntities(Enemy.class)){
+            world.removeEntity(zombie);
+        }
     }
     
     
