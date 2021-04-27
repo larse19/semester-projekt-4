@@ -8,6 +8,8 @@ package dk.sdu.mmmi.osgicollision;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.DamagePart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
@@ -30,7 +32,15 @@ public class Collider implements IPostEntityProcessingService{
                 }
                 
                 if (this.Collides(entity, colliderObject)){
-                    System.out.println("Oof");
+                    //System.out.println(colliderObject.getClass());
+                    //System.out.println(colliderObject.getPart(DamagePart.class) != null);
+                    DamagePart dp = colliderObject.getPart(DamagePart.class);
+                    if(dp != null){
+                        LifePart lp = entity.getPart(LifePart.class);
+                        if(lp != null){
+                            lp.damage(dp.getDamage());
+                        }
+                    }
                 }
                 
             }
@@ -55,24 +65,5 @@ public class Collider implements IPostEntityProcessingService{
             return false;
         }
         
-//        //Bottom player collision
-//        if (entMov.getX() == (entMov2.getY() + spriteHeight2) 
-//                && (entMov.getX() + spriteWidth1) == (entMov2.getY() + spriteHeight2 + spriteWidth2)) {
-//            return true;
-//        //Top player collision
-//        } else if ((entMov.getX() + spriteHeight1) == entMov2.getX() && 
-//                (entMov.getY() + spriteHeight1 + spriteWidth1) == (entMov2.getY() + spriteWidth2)) {
-//            return true;
-//        //Right player collision
-//        } else if ((entMov.getX() + spriteWidth1) == entMov2.getX() && 
-//                (entMov.getY() + spriteWidth1 + spriteHeight1) == (entMov2.getY() + spriteHeight2)) {
-//            return true;
-//        //Left player collision
-//        } else if (entMov.getX() == (entMov2.getX() + spriteWidth2) && 
-//                (entMov.getY() + spriteHeight1) == (entMov2.getY() + spriteWidth2 + spriteHeight2)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
     }
 }

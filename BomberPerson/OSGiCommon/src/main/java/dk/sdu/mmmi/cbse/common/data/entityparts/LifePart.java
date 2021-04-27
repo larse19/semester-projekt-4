@@ -16,9 +16,11 @@ public class LifePart implements EntityPart {
     private boolean dead = false;
     private int life;
     private boolean isHit = false;
-
+    private TimerPart timerPart;
+    private float invincibilyTime = 1f;
 
     public LifePart(int life) {
+        timerPart = new TimerPart(invincibilyTime);
         this.life = life;
     }
 
@@ -42,14 +44,19 @@ public class LifePart implements EntityPart {
         return dead;
     }
 
-    
+    public void damage(int damage){
+        if(timerPart.getExpiration() <= 0){
+            System.out.println("oof");
+            life -= damage;
+            System.out.println(life);
+            timerPart.setExpiration(invincibilyTime);
+        }
+        
+    }
     
     @Override
     public void process(GameData gameData, Entity entity) {
-        if (isHit) {
-            life =- 1;
-            isHit = false;
-        }
+        timerPart.process(gameData, entity);
         if (life <= 0) {
             dead = true;
         }

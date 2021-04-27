@@ -12,6 +12,7 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import dk.sdu.mmmi.cbse.common.data.entityparts.DamagePart;
 import dk.sdu.mmmi.osgibomb.BombController;
 import dk.sdu.mmmi.osgibomb.ClassicBomb;
 import dk.sdu.mmmi.osgicommonbomb.BombSPI;
@@ -27,6 +28,14 @@ public class PlayerControlSystem implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
 
        for (Entity player : world.getEntities(Player.class)) {
+           
+           LifePart lp = player.getPart(LifePart.class);
+           lp.process(gameData, player);
+           
+           if(lp.isDead()){
+               System.out.println("you ded");
+               world.removeEntity(player);
+           }
            
             PositionPart positionPart = player.getPart(PositionPart.class);
             MovingPart movingPart = player.getPart(MovingPart.class);

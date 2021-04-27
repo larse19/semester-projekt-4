@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -23,8 +24,9 @@ public class PlayerPlugin implements IGamePluginService {
         player = new Player();
         player.add(new PositionPart(300 - 11, 300 - 10));
         player.add(new MovingPart(speed, world));
+        player.add(new LifePart(5));
         System.out.println("player created");
-        if (world.getEntities(Player.class).size() == 0){
+        if (world.getEntities(Player.class).isEmpty()){
             playerID = world.addEntity(player);
         }
     }

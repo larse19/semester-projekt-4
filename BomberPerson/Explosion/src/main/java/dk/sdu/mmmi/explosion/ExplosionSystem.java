@@ -3,6 +3,7 @@ package dk.sdu.mmmi.explosion;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.DamagePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.TimerPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
@@ -28,6 +29,7 @@ public class ExplosionSystem implements IEntityProcessingService, ExplosionSPI{
         Entity explosion = new Explosion();
         explosion.add(new PositionPart(x, y));
         explosion.add(new TimerPart(0.5f));
+        explosion.add(new DamagePart(1));
         explosion.create();
         explosion.getSprite().setPosition(x, y);
         world.addEntity(explosion);
