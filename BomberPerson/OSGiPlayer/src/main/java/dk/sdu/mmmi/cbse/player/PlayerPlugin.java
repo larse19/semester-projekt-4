@@ -24,7 +24,9 @@ public class PlayerPlugin implements IGamePluginService {
         player.add(new PositionPart(300, 300));
         player.add(new MovingPart(speed));
         System.out.println("player created");
-        playerID = world.addEntity(player);
+        if (world.getEntities(Player.class).size() == 0){
+            playerID = world.addEntity(player);
+        }
     }
 
     @Override

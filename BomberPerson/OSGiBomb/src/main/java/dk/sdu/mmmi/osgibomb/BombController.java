@@ -47,6 +47,18 @@ public class BombController implements IEntityProcessingService, BombSPI{
         bomb.add(new PositionPart(x,y));
         bomb.create();
         bomb.getSprite().setPosition(x, y);
-        world.addEntity(bomb);
+        
+        boolean existingBomb = false;
+        
+        for (Entity otherBomb : world.getEntities(ClassicBomb.class)){
+            PositionPart pp = otherBomb.getPart(PositionPart.class);
+            if (pp.getX() == x && pp.getY() == y){
+                existingBomb = true;
+                break;
+            }
+        }
+        if (!existingBomb){
+            world.addEntity(bomb);
+        }
     }
 }

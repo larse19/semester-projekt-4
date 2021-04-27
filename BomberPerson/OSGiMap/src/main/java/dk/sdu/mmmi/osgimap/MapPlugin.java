@@ -47,7 +47,6 @@ public class MapPlugin implements IGamePluginService  {
     public void start(GameData gameData, World world) {
         WorldMap map = new ClassicMap();
         world.setWorldMap(map);
-        System.out.println("helooo");
     }
 
     @Override
