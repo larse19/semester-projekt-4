@@ -1,5 +1,11 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.MapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,6 +20,7 @@ public class World {
 
     private final Map<String, Entity> entityMap = new ConcurrentHashMap<>();
     private WorldMap worldMap;
+
 
     public WorldMap getWorldMap() {
         return worldMap;

@@ -5,31 +5,15 @@
  */
 package dk.sdu.mmmi.osgimap;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
-import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import dk.sdu.mmmi.cbse.common.data.WorldMap;
 
 /**
@@ -45,8 +29,9 @@ public class MapPlugin implements IGamePluginService  {
     
     @Override
     public void start(GameData gameData, World world) {
-        WorldMap map = new ClassicMap();
-        world.setWorldMap(map);
+        WorldMap worldMap = new ClassicMap();
+        world.setWorldMap(worldMap);
+        //worldMap.create();
         System.out.println("helooo");
     }
 
@@ -70,8 +55,7 @@ public class MapPlugin implements IGamePluginService  {
 //        return map;
 //    }
     
-    //@Override
-    public void create() {
+    public void createMap() {
         map = new TiledMap();
         
         TmxMapLoader loader = new TmxMapLoader();
@@ -83,6 +67,7 @@ public class MapPlugin implements IGamePluginService  {
 
         camera = new OrthographicCamera();
     }
+    /*
 
     //@Override
     public void render() {
@@ -125,7 +110,7 @@ public class MapPlugin implements IGamePluginService  {
         map.dispose();
         renderer.dispose();
         sr.dispose();
-    }
+    }*/
 
 
 }
