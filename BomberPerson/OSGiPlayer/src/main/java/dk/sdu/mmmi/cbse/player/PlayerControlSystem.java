@@ -21,6 +21,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
     
     private BombSPI bombSPI = new BombController();
     private boolean placingBomb = false;
+    private int currentDirection = 5;
 
     @Override
     public void process(GameData gameData, World world) {
@@ -31,7 +32,8 @@ public class PlayerControlSystem implements IEntityProcessingService {
             MovingPart movingPart = player.getPart(MovingPart.class);
 //            LifePart lifePart = player.getPart(LifePart.class);
 
-            movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT));
+           
+             movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT));
             movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT));
             movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP));
             movingPart.setDown(gameData.getKeys().isDown(GameKeys.DOWN));

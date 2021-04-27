@@ -21,8 +21,8 @@ public class PlayerPlugin implements IGamePluginService {
     @Override
     public void start(GameData gameData, World world) {
         player = new Player();
-        player.add(new PositionPart(300, 300));
-        player.add(new MovingPart(speed));
+        player.add(new PositionPart(300 - 11, 300 - 10));
+        player.add(new MovingPart(speed, world));
         System.out.println("player created");
         playerID = world.addEntity(player);
     }
@@ -78,8 +78,8 @@ public class PlayerPlugin implements IGamePluginService {
     public void draw(Batch batch) {
         update(Gdx.graphics.getDeltaTime());
         super.draw(batch);
-    }
-    
+    }*/
+    /*
     public void update(float delta) {
         // apply gravity
         //velocity.y -= gravity * delta;
