@@ -17,37 +17,27 @@ public class Entity extends ApplicationAdapter implements Serializable {
     private float radius;
     private Map<Class, EntityPart> parts;
     private Sprite sprite;
-    private int spriteWidth;
-    private int spriteHeight;
-
-    public int getSpriteWidth() {
-        return spriteWidth;
-    }
-
-    public void setSpriteWidth(int spriteWidth) {
-        this.spriteWidth = spriteWidth;
-    }
-
-    public int getSpriteHeight() {
-        return spriteHeight;
-    }
-
-    public void setSpriteHeight(int spriteHeight) {
-        this.spriteHeight = spriteHeight;
-    }
-    private String SpriteLocation;
-
-    public void setSpriteLocation(String SpriteLocation) {
-        this.SpriteLocation = SpriteLocation;
-    }
-
-    public String getSpriteLocation() {
-        return SpriteLocation;
-    }
+    private boolean isCollidable;
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
+        this.isCollidable = true;
     }
+    
+    public Entity(boolean isCollidable){
+        parts = new ConcurrentHashMap<>();
+        this.isCollidable = isCollidable;
+    }
+
+    public boolean isIsCollidable() {
+        return isCollidable;
+    }
+
+    public void setIsCollidable(boolean isCollidable) {
+        this.isCollidable = isCollidable;
+    }
+    
+    
     
     public void add(EntityPart part) {
         parts.put(part.getClass(), part);

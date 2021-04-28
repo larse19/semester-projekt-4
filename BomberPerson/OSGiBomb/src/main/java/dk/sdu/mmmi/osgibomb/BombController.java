@@ -36,9 +36,6 @@ public class BombController implements IEntityProcessingService, BombSPI{
             }
             
             if(timerPart.getExpiration() <= 0){
-                
-                
-                
                 TiledMapTileLayer layer = (TiledMapTileLayer) world.getWorldMap().getMap().getLayers().get("Walls");
                 for (int i = 1; i < blastRadius; i++) {
                     int distance = 32 * i;
@@ -102,16 +99,6 @@ public class BombController implements IEntityProcessingService, BombSPI{
                 for (Integer[] spawnPlace : spawnPlaces) {
                     espi.createExplosion(spawnPlace[0], spawnPlace[1], world);
                 }
-                
-                /*
-                espi.createExplosion((int)pp.getX(), (int)pp.getY(), world);
-                for (int i = 1; i <= blastRadius; i++) {
-                    int distance = 32 * i;
-                    espi.createExplosion((int)pp.getX() - distance, (int)pp.getY(), world);
-                    espi.createExplosion((int)pp.getX() + distance, (int)pp.getY(), world);
-                    espi.createExplosion((int)pp.getX(), (int)pp.getY() - distance, world);
-                    espi.createExplosion((int)pp.getX(), (int)pp.getY() + distance, world);
-                }*/
                 
                 world.removeEntity(bomb);
             }

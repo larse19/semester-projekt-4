@@ -31,6 +31,10 @@ public class Collider implements IPostEntityProcessingService{
                     continue;
                 }
                 
+                if(!entity.isIsCollidable() || !colliderObject.isIsCollidable()){
+                    continue;
+                }
+                
                 if (this.Collides(entity, colliderObject)){
                     //System.out.println(colliderObject.getClass());
                     //System.out.println(colliderObject.getPart(DamagePart.class) != null);

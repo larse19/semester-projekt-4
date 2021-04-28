@@ -8,8 +8,6 @@ package dk.sdu.mmmi.cbse.player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
 
 /**
  *
@@ -17,12 +15,12 @@ import dk.sdu.mmmi.cbse.common.data.World;
  */
 
 public class Player extends Entity{
-       
-    private GameData gameData;
-    private World world;
+      
     
     public Player(){
     }
+
+
     
     @Override
     public void create(){
