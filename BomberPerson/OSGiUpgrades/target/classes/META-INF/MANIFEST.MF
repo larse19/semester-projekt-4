@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1620221319421
+Build-Jdk: 1.8.0_41
+Built-By: ander
+Bundle-Activator: dk.sdu.mmmi.osgiupgrades.Activator
+Bundle-Description: Generated using Pax-Construct
+Bundle-ManifestVersion: 2
+Bundle-Name: OSGiUpgrades
+Bundle-SymbolicName: dk.sdu.mmmi.common
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: dk.sdu.mmmi.cbse.common.data;uses:="dk.sdu.mmmi.cbse.com
+ mon.data.entityparts,com.badlogic.gdx,com.badlogic.gdx.graphics.g2d,dk.
+ sdu.mmmi.cbse.common.events,com.badlogic.gdx.maps.tiled,com.badlogic.gd
+ x.maps,com.badlogic.gdx.maps.tiled.renderers,com.badlogic.gdx.graphics.
+ glutils,com.badlogic.gdx.graphics";version="1.0.0.SNAPSHOT",dk.sdu.mmmi
+ .cbse.common.data.entityparts;uses:="dk.sdu.mmmi.cbse.common.data,com.b
+ adlogic.gdx.maps.tiled,com.badlogic.gdx.maps,com.badlogic.gdx.graphics.
+ g2d";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.osgiupgrades;uses:="org.osgi.
+ framework,dk.sdu.mmmi.cbse.common.services,com.badlogic.gdx.graphics.g2
+ d,com.badlogic.gdx.graphics,dk.sdu.mmmi.cbse.common.data,dk.sdu.mmmi.cb
+ se.common.data.entityparts";version="1.0.0.SNAPSHOT",dk.sdu.mmmi.cbse.c
+ ommon.events;uses:="dk.sdu.mmmi.cbse.common.data";version="1.0.0.SNAPSH
+ OT",dk.sdu.mmmi.cbse.common.services;uses:="dk.sdu.mmmi.cbse.common.dat
+ a";version="1.0.0.SNAPSHOT"
+Import-Package: com.badlogic.gdx,com.badlogic.gdx.graphics,com.badlogic.
+ gdx.graphics.g2d,com.badlogic.gdx.graphics.glutils,com.badlogic.gdx.map
+ s,com.badlogic.gdx.maps.tiled,com.badlogic.gdx.maps.tiled.renderers,org
+ .osgi.framework;version="[1.6,2)"
+Tool: Bnd-1.50.0

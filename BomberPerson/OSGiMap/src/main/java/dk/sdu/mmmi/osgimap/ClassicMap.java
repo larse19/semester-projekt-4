@@ -12,13 +12,19 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.WorldMap;
+import dk.sdu.mmmi.osgiupgrade.UpgradeSystem;
 
 
 public class ClassicMap extends WorldMap {
 
-    public ClassicMap() {
-        
+    private UpgradeSystem upgradeSystem;
+    private World world;
+    
+    public ClassicMap(World world) {
+        upgradeSystem = new UpgradeSystem();
+        this.world = world;
     }
    
     
@@ -33,6 +39,8 @@ public class ClassicMap extends WorldMap {
         this.setRenderer(new OrthogonalTiledMapRenderer(map));
         this.setSr(new ShapeRenderer());
         Gdx.gl.glLineWidth(3);
+        
+        upgradeSystem.createUpgrade(32 * 7, 32 * 9, world);
 
         //camera = new OrthographicCamera();
     }

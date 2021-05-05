@@ -29,14 +29,14 @@ public class MapPlugin implements IGamePluginService  {
     
     @Override
     public void start(GameData gameData, World world) {
-        WorldMap worldMap = new ClassicMap();
+        WorldMap worldMap = new ClassicMap(world);
         world.setWorldMap(worldMap);
         System.out.println("helooo");
     }
 
     @Override
     public void stop(GameData gameData, World world) {
-        world.setWorldMap(null);
+        //world.setWorldMap(null);
     }
         
 //    private TiledMap createMap(GameData gameData) {
