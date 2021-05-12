@@ -30,6 +30,11 @@
             <artifactId>OSGiCommonEnemy</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiAI</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
