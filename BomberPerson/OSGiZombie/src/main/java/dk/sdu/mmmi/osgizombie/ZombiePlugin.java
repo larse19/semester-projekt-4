@@ -23,24 +23,24 @@ public class ZombiePlugin implements IGamePluginService{
 
     @Override
     public void start(GameData gameData, World world) {
-        Entity zombie = new Enemy();
+        Entity zombie = new Zombie();
         zombie.add(new PositionPart(32, 38));
         zombie.add(new LifePart(1));
         zombie.add(new DamagePart(2));
         zombie.add(new MovingPart(100, world));
         world.addEntity(zombie);
         
-        zombie = new Enemy();
-        zombie.add(new PositionPart(32, 550));
-        zombie.add(new LifePart(1));
-        zombie.add(new DamagePart(2));
-        zombie.add(new MovingPart(100, world));
-        world.addEntity(zombie);        
+//        zombie = new Enemy();
+//        zombie.add(new PositionPart(32, 550));
+//        zombie.add(new LifePart(1));
+//        zombie.add(new DamagePart(2));
+//        zombie.add(new MovingPart(100, world));
+//        world.addEntity(zombie);        
     }
 
     @Override
     public void stop(GameData gameData, World world) {
-        for(Entity zombie : world.getEntities(Enemy.class)){
+        for(Entity zombie : world.getEntities(Zombie.class)){
             world.removeEntity(zombie);
         }
     }

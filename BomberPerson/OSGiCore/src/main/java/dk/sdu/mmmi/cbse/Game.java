@@ -4,12 +4,19 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -37,10 +44,11 @@ public class Game implements ApplicationListener {
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 
-    //private TiledMap map;
-//    private OrthogonalTiledMapRenderer renderer;
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
     //private OrthographicCamera camera;
     private SpriteBatch batch;
+    private BitmapFont font;
     
     public Game(){
         init();
@@ -61,16 +69,19 @@ public class Game implements ApplicationListener {
     public void create() {
         gameData.setDisplayWidth(Gdx.graphics.getWidth());
         gameData.setDisplayHeight(Gdx.graphics.getHeight());
+        
+        batch = new SpriteBatch();    
+        font = new BitmapFont();
+        font.setColor(Color.RED);
 
-//
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
 //
         sr = new ShapeRenderer();
         batch = new SpriteBatch();
-//
-
+//  
+        
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
 
@@ -104,10 +115,20 @@ public class Game implements ApplicationListener {
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
         
-        WorldMap worldMap = world.getWorldMap();    
+        WorldMap worldMap = world.getWorldMap();
+        
+
+        
+//        batch.begin();
+//            font.setColor(Color.WHITE);
+//            font.scale(50);
+//            font.draw(batch, "Hello World!", 100, 100);
+//        batch.end();
+        
+        
+            
         try {
             TiledMapTileLayer layer0 = (TiledMapTileLayer) worldMap.getMap().getLayers().get(0);
-           
             
             Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
             cam.position.set(center);
@@ -136,11 +157,30 @@ public class Game implements ApplicationListener {
         
         update();
         //draw();
+        
+        batch.begin();
+        font.setColor(Color.WHITE);
+        font.setScale(1);
+        font.draw(batch, "Life:", 32, 601);
+        batch.end();
+        
+        batch.begin();
+        font.setColor(Color.WHITE);
+        font.setScale(1);
+        font.draw(batch, "Bombs:", 350, 601);
+        batch.end();
 
 //
 //            renderer.getBatch().begin();
 //            player.draw(renderer.getBatch());
 //            renderer.getBatch().end();
+
+//        for (MapObject object : map.getLayers().get("Life").getObjects()) {
+//            if (object instanceof TextureMapObject) {
+//                Texture text = ((TextureMapObject) object);
+//                
+//            }
+//        }
 
 
     }
@@ -209,6 +249,8 @@ public class Game implements ApplicationListener {
 
     @Override
     public void dispose() { 
+        batch.dispose();
+        font.dispose();
     }
 
     public void addEntityProcessingService(IEntityProcessingService eps) {
