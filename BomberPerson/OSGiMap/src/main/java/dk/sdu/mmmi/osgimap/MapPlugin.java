@@ -8,7 +8,11 @@ package dk.sdu.mmmi.osgimap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -64,12 +68,22 @@ public class MapPlugin implements IGamePluginService  {
         sr = new ShapeRenderer();
         Gdx.gl.glLineWidth(3);
 
-        camera = new OrthographicCamera();
-    }
-    /*
+        camera = new OrthographicCamera(); 
+        
+//        MapLayer layer = map.getLayers().get("Life");
+//        TextureMapObject textureMapObject = new TextureMapObject();
+//        textureMapObject.setName("plane");
+//        textureMapObject.setX(250);
+//        textureMapObject.setY(250);
+//        layer.getObjects().add(textureMapObject);
 
-    //@Override
-    public void render() {
+    }
+
+//    public void render() {
+//        MapLayer layer = map.getLayers().get("Life");
+//        MapObjects objects = layer.getObjects();
+//    }
+/*
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
          

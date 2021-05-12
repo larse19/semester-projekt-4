@@ -5,7 +5,6 @@
  */
 package dk.sdu.mmmi.osgizombie;
 
-import com.badlogic.gdx.Gdx;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -13,7 +12,6 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.osgicommonenemy.Enemy;
 
 /**
  *
@@ -23,7 +21,7 @@ public class ZombieControler implements IEntityProcessingService{
 
     @Override
     public void process(GameData gameData, World world) {
-        for (Entity zombie : world.getEntities(Enemy.class)) {
+        for (Entity zombie : world.getEntities(Zombie.class)) {
            
            LifePart lp = zombie.getPart(LifePart.class);
            lp.process(gameData, zombie);

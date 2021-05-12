@@ -19,9 +19,6 @@ public class Enemy extends Entity{
     public Enemy(){
     }
     
-    @Override
-    public void create(){
-        this.setSprite(new Sprite(new Texture("img/zombie.png"), 0, 0, 22, 20));
-    }
+
    
 }

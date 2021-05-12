@@ -16,9 +16,13 @@ import dk.sdu.mmmi.cbse.common.data.WorldMap;
 
 
 public class ClassicMap extends WorldMap {
-
+    
+//    private UpgradesSystem upgradeSystem;
+//    private World world;
+    
     public ClassicMap() {
-        
+//        upgradeSystem = new UpgradesSystem();
+//        this.world = world;
     }
    
     

@@ -15,6 +15,7 @@ public class PlayerPlugin implements IGamePluginService {
     private Vector2 velocity = new Vector2();
     private Entity player;
     private int maxLife = 5;
+    private int maxBombs = 2;
     
     private final float speed = 80;
     
@@ -27,9 +28,14 @@ public class PlayerPlugin implements IGamePluginService {
         player.add(new MovingPart(speed, world));
         player.add(new LifePart(maxLife));
         for (int i = 0; i < maxLife; i++) {
-            Entity heart = new LifeHeart(i* 32, 0);
+            Entity heart = new LifeHeart(64+(i* 32), 577);
             heart.add(new PositionPart(i * 32, 0));
             world.addEntity(heart);
+        }
+        for (int i = 0; i < maxBombs; i++) {
+            Entity bombCounter = new BombCounter(400+(i* 32), 577);
+            bombCounter.add(new PositionPart(i * 32, 0));
+            world.addEntity(bombCounter);
         }
         System.out.println("player created");
         if (world.getEntities(Player.class).isEmpty()){

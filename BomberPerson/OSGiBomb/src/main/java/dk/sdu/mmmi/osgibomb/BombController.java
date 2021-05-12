@@ -30,7 +30,7 @@ public class BombController implements IEntityProcessingService, BombSPI{
             LifePart lifePart = bomb.getPart(LifePart.class);
             TimerPart timerPart = bomb.getPart(TimerPart.class);
             PositionPart pp = bomb.getPart(PositionPart.class);
-            
+             
             if(lifePart.getLife() <= 0){
                 timerPart.setExpiration(0);
             }
