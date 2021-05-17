@@ -202,6 +202,7 @@ public class Game implements ApplicationListener {
     }
 
     public void addEntityProcessingService(IEntityProcessingService eps) {
+        System.out.println(eps);
         this.entityProcessorList.add(eps);
     }
 

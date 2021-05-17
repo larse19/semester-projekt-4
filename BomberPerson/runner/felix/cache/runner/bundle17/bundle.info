@@ -1,10 +1,6 @@
 17
-file:bundles/dk.sdu.mmmi.OSGiZombie_1.0.0.SNAPSHOT.jar
+file:bundles/org.osgi.core_4.jar
 32
 5
-<<<<<<< HEAD
-1621249206905
-=======
-1620827182042
->>>>>>> AI
+1621255294149
 0

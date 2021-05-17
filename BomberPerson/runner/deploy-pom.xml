@@ -159,6 +159,19 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>dk.sdu.mmmi.build</groupId>
+      <artifactId>OSGiAI</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>bundle</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <version>1.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>dk.sdu.mmmi</groupId>
       <artifactId>OSGiZombie</artifactId>
       <version>1.0-SNAPSHOT</version>
@@ -172,20 +185,20 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>dk.sdu.mmmi.build</groupId>
+      <artifactId>OSGiAI</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>dk.sdu.mmmi</groupId>
-<<<<<<< HEAD
       <artifactId>OSGiUpgrades</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>bundle</type>
-=======
-      <artifactId>OSGiAI</artifactId>
-      <version>1.0-SNAPSHOT</version>
->>>>>>> AI
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>dk.sdu.mmmi.build</groupId>
-<<<<<<< HEAD
       <artifactId>OSGiPlayer</artifactId>
       <version>1.0-SNAPSHOT</version>
       <scope>provided</scope>
@@ -193,9 +206,6 @@
     <dependency>
       <groupId>dk.sdu.mmmi</groupId>
       <artifactId>OSGiFireEnemy</artifactId>
-=======
-      <artifactId>OSGiAI</artifactId>
->>>>>>> AI
       <version>1.0-SNAPSHOT</version>
       <type>bundle</type>
       <scope>provided</scope>

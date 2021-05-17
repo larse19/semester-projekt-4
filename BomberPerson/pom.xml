@@ -297,7 +297,7 @@
     
     
     <module>OSGiFireEnemy</module>
-      
+    <module>OSGiAI</module>
   </modules>
                     
   

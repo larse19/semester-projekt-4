@@ -7,6 +7,7 @@ package dk.sdu.mmmi.osgiai;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 
@@ -44,18 +45,22 @@ public class AStar {
                     }
                 }
             }
-//            if (world.getEntities(Rectangle.class).size() == 0) {
+//            if (world.getEntities(Rectangle.class).isEmpty()) {
 //                
-//                //System.out.println("Yeds");
-////                for (int y = 0; y < mapHeight; y++) {
-////                    for (int x = 0; x < mapWidth; x++) {
-////                            Rectangle erect = new Rectangle(nodes[x][y].getX(), nodes[x][y].getY(), nodes[x][y].isBlocked());
-////                            erect.add(new PositionPart(x, y));
-////                            world.addEntity(erect);
-////                    }
-////                }
+//                System.out.println("Yeds");
+//                for (int y = 0; y < mapHeight; y++) {
+//                    for (int x = 0; x < mapWidth; x++) {
+//                            Rectangle erect = new Rectangle(nodes[x][y].getX(), nodes[x][y].getY(), nodes[x][y].isBlocked());
+//                            erect.add(new PositionPart(x, y));
+//                            world.addEntity(erect);
+//                    }
+//                }
 //            }
-            //System.out.println(nodes.toString());
+//            int i = 0;
+//            for (Entity e : world.getEntities(Rectangle.class)){
+//                i++;
+//            }
+//            System.out.println(i);
             return nodes;
         }
         return null;
