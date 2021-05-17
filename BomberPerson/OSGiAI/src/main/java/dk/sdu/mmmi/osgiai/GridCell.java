@@ -13,6 +13,8 @@ public class GridCell {
     private int x;
     private int y;
     private boolean blocked;
+    private boolean isPath;
+    private float f, g, h;
 
     public GridCell(int x, int y, boolean blocked) {
         this.x = x;
@@ -44,7 +46,38 @@ public class GridCell {
         this.blocked = blocked;
     }
     
-    @Override
+    public float getF() {
+        return f;
+    }
+
+    public void setF(float f) {
+        this.f = f;
+    }
+
+    public float getG() {
+        return g;
+    }
+
+    public void setG(float g) {
+        this.g = g;
+    }
+
+    public float getH() {
+        return h;
+    }
+
+    public void setH(float h) {
+        this.h = h;
+    }
+
+    public boolean isPath() {
+        return isPath;
+    }
+
+    public void setIsPath(boolean isPath) {
+        this.isPath = isPath;
+    }
+
     public String toString(){
         return "" + blocked;
     }

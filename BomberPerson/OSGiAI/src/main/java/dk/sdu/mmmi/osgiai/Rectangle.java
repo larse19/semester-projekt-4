@@ -17,12 +17,14 @@ public class Rectangle extends Entity{
     int x;
     int y;
     boolean blocked;
+    boolean isPath = false;
 
-    public Rectangle(int x, int y, boolean blocked) {
+    public Rectangle(int x, int y, boolean blocked, boolean isPath) {
         super(false);
         this.x = x;
         this.y = y;
         this.blocked = blocked;
+        this.isPath = isPath;
     }
 
     
@@ -30,9 +32,12 @@ public class Rectangle extends Entity{
     public void create(){
         if (blocked) {
             this.setSprite(new Sprite(new Texture("img/blocked.png")));
+        } else if (isPath) {
+            this.setSprite(new Sprite(new Texture("img/path.png")));
         } else {
             this.setSprite(new Sprite(new Texture("img/free.png")));
-        }
+            }
         this.getSprite().setPosition(x, y);
     }
+    
 }

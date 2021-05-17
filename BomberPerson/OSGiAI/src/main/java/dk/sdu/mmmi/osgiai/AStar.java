@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +18,8 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
  */
 public class AStar {
     private GridCell[][] stateSpace;
-
+    private GridCell[][] path;
+    
     public AStar() {
     }
     
@@ -29,13 +31,16 @@ public class AStar {
         TiledMap tiledmap = world.getWorldMap().getMap();
         if (tiledmap != null) {
             TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tiledmap.getLayers().get("Walls");
+            // mapWidth & mapHeight = 19
             int mapWidth = tiledmap.getProperties().get("width", Integer.class);
             int mapHeight = tiledmap.getProperties().get("height", Integer.class);
+            // tileWidth & tileHeight = 32
             int tileWidth = tiledmap.getProperties().get("tilewidth", Integer.class);
             int tileHeight = tiledmap.getProperties().get("tileheight", Integer.class);
         
             GridCell[][] nodes = new GridCell[mapWidth][mapHeight];
-        
+            path = new GridCell[mapWidth][mapHeight];    
+            
             for (int y = 0; y < mapHeight; y++) {
                 for (int x = 0; x < mapWidth; x++) {
                     if (isCellBlocked(x, y, collisionLayer)) {
@@ -45,23 +50,44 @@ public class AStar {
                     }
                 }
             }
-//            if (world.getEntities(Rectangle.class).isEmpty()) {
-//                
-//                System.out.println("Yeds");
-//                for (int y = 0; y < mapHeight; y++) {
-//                    for (int x = 0; x < mapWidth; x++) {
-//                            Rectangle erect = new Rectangle(nodes[x][y].getX(), nodes[x][y].getY(), nodes[x][y].isBlocked());
-//                            erect.add(new PositionPart(x, y));
-//                            world.addEntity(erect);
-//                    }
-//                }
-//            }
-//            int i = 0;
-//            for (Entity e : world.getEntities(Rectangle.class)){
-//                i++;
-//            }
-//            System.out.println(i);
+            
+            nodes[1][1].setIsPath(true);
+            
+            if (world.getEntities(Rectangle.class).isEmpty()) {
+                
+                System.out.println("Yeds");
+                for (int y = 0; y < mapHeight; y++) {
+                    for (int x = 0; x < mapWidth; x++) {
+                            Rectangle erect = new Rectangle(nodes[x][y].getX(), nodes[x][y].getY(), nodes[x][y].isBlocked(), nodes[x][y].isPath());
+                            erect.add(new PositionPart(x, y));
+                            world.addEntity(erect);
+                    }
+                }
+            }
             return nodes;
+        }
+        return null;
+    }
+    
+    private GridCell[] aStarSearch (GridCell[][] nodes, int x, int y){
+        ArrayList<GridCell> fringe = new ArrayList<>();
+        GridCell initialNode = getEnemyCell(nodes);
+        fringe.add(initialNode);
+        while (!fringe.isEmpty()){
+            Node node = aStarNode(fringe);
+            if (getEnemyCell().equals(getPlayerCell())){
+                return node.path();
+            }
+            GridCell children = getNeighbors(node);
+            fringe.add(children);
+        }
+        return null;
+    }
+    
+    private GridCell getNeighbors(GridCell node){
+        ArrayList<GridCell> neighbors = new ArrayList<>();
+        if (!node.setX(1).isBlocked()){
+            
         }
         return null;
     }

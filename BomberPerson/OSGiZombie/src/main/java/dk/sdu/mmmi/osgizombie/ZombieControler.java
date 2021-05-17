@@ -12,7 +12,6 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.osgiai.AStar;
 import dk.sdu.mmmi.osgicommonenemy.Enemy;
 
 /**
@@ -20,14 +19,11 @@ import dk.sdu.mmmi.osgicommonenemy.Enemy;
  * @author andre
  */
 public class ZombieControler implements IEntityProcessingService{
-    AStar aStar = new AStar();
     
     @Override
     public void process(GameData gameData, World world) {
         
-        aStar.update(world);
-        
-        for (Entity zombie : world.getEntities(Enemy.class)) {
+        for (Entity zombie : world.getEntities(Zombie.class)) {
            
            LifePart lp = zombie.getPart(LifePart.class);
            lp.process(gameData, zombie);
