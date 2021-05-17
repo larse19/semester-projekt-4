@@ -36,11 +36,6 @@ public class PlayerPlugin implements IGamePluginService {
                 world.addEntity(heart);
             }
         }
-        for (int i = 0; i < maxBombs; i++) {
-            Entity bombCounter = new BombCounter(400+(i* 32), 577);
-            bombCounter.add(new PositionPart(i * 32, 0));
-            world.addEntity(bombCounter);
-        }
         System.out.println("player created");
         if (world.getEntities(Player.class).isEmpty()){
             world.addEntity(player);

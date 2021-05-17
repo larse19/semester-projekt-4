@@ -21,7 +21,7 @@ import dk.sdu.mmmi.osgicommonbomb.BombSPI;
 public class Player extends Entity{
 
     private int movementSpeed = 80;
-    private int inventorySize = 3;
+    private int inventorySize = 2;
     private int blastRadius = 1;
     private int health = 5;
     private BombController bombSPI = new BombController();
