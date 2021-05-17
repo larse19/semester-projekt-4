@@ -11,10 +11,9 @@
 /BomberPerson/OSGiCollision/target/
 /BomberPerson/OSGiCommonEnemy/target/
 /BomberPerson/OSGiZombie/target/
-<<<<<<< HEAD
+/BomberPerson/OSGiAI/nbproject/
+/BomberPerson/OSGiAI/target/
 /BomberPerson/OSGiFireEnemy/target/
 /BomberPerson/OSGiUpgrades/target/
-=======
 /BomberPerson/test/target/
 /BomberPerson/OSGiUpgrades/target/
->>>>>>> UpgradesWork

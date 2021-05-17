@@ -8,12 +8,14 @@ import org.osgi.framework.BundleContext;
 public class Activator implements BundleActivator {
 
     public void start(BundleContext context) throws Exception {
+        System.out.println("Din mor");
         BombController bc = new BombController();
         context.registerService(IEntityProcessingService.class, bc, null);
         context.registerService(BombSPI.class, bc, null);
     }
 
     public void stop(BundleContext context) throws Exception {
+        System.out.println("ses");
         // TODO add deactivation code here
     }
 
