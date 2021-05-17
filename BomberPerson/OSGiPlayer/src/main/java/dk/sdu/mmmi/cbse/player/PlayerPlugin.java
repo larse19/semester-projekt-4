@@ -1,6 +1,5 @@
 package dk.sdu.mmmi.cbse.player;
 
-import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -11,26 +10,31 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class PlayerPlugin implements IGamePluginService {
 
-    private String playerID;
-    private Vector2 velocity = new Vector2();
-    private Entity player;
-    private int maxLife = 5;
-    private int maxBombs = 2;
-    
-    private final float speed = 80;
+    private Player player;
     
     private String blockedKey = "blocked";
 
     @Override
     public void start(GameData gameData, World world) {
         player = new Player();
+        player.setPlayer(true);
         player.add(new PositionPart(300 - 11, 300 - 10));
-        player.add(new MovingPart(speed, world));
-        player.add(new LifePart(maxLife));
-        for (int i = 0; i < maxLife; i++) {
+        player.add(new MovingPart(player.getMovementSpeed(), world));
+        player.add(new LifePart(player.getHealth()));
+        for (int i = 0; i < player.getHealth(); i++) {
             Entity heart = new LifeHeart(64+(i* 32), 577);
             heart.add(new PositionPart(i * 32, 0));
-            world.addEntity(heart);
+            boolean existingHeart = false;
+            for(Entity e : world.getEntities(LifeHeart.class)){
+                PositionPart pp = e.getPart((PositionPart.class));
+                if(pp.getX() == i * 32){
+                    existingHeart = true;
+                    break;
+                }
+            }
+            if(!existingHeart){
+                world.addEntity(heart);
+            }
         }
         for (int i = 0; i < maxBombs; i++) {
             Entity bombCounter = new BombCounter(400+(i* 32), 577);
@@ -39,294 +43,16 @@ public class PlayerPlugin implements IGamePluginService {
         }
         System.out.println("player created");
         if (world.getEntities(Player.class).isEmpty()){
-            playerID = world.addEntity(player);
+            world.addEntity(player);
         }
     }
 
     @Override
     public void stop(GameData gameData, World world) {
-        // Remove entities
-        //assetManager.dispose();
-        world.removeEntity(playerID);
-    }
-  /*
-    private Entity createPlayer(GameData gameData) {
-
-
-//        player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
-//        player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
-        player = new Player();
-          
-        player.add(new PositionPart(gameData.getDisplayWidth()/2, gameData.getDisplayHeight()/2));
-        player.add(new MovingPart(speed));
-
-        //player.setSprite(new Sprite(assetManager.get("resource img/playerSprite.png", Texture.class)));
-        //player.setSprite(new Sprite(new Texture("./playerSprite.png")));
-        player.setSpriteLocation("img/88874.png");
-        player.setSpriteWidth(22);
-        player.setSpriteHeight(20);
-
-        //Entity player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
-        //player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
-//        playerShip.setRadius(8);
-//        playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
-//        playerShip.add(new PositionPart(x, y, radians));
-//        playerShip.add(new LifePart(400));
-
-        //Gdx.input.setInputProcessor(player);
-//        camera.position.set(player.getWidth(), player.getHeight(), 0);
-//        camera.update();            
-//
-//        renderer.setView(camera);
-//        renderer.render();
-////
-//        renderer.getBatch().begin();
-//        player.draw(renderer.getBatch());
-//        renderer.getBatch().end();
-            
-//
-        return player;
-    }*/
-    
-    
-    /*
-    @Override
-    public void draw(Batch batch) {
-        update(Gdx.graphics.getDeltaTime());
-        super.draw(batch);
-    }*/
-    /*
-    public void update(float delta) {
-        // apply gravity
-        //velocity.y -= gravity * delta;
-
-        // clamp velocity
-        if (velocity.y > speed) {
-            velocity.y = speed;
-        } else if (velocity.y < -speed) {
-            velocity.y = -speed;
+        for(Entity player : world.getEntities(Player.class)){
+            world.removeEntity(player);
         }
-
-        // save old position
-        float oldX = getX(), oldY = getY();
-        boolean collisionX = false, collisionY = false;
-
-        // move on x
-        setX(getX() + velocity.x * delta);
-
-        // calculate the increment for step in #collidesLeft() and #collidesRight()
-        increment = collisionLayer.getTileWidth();
-        increment = getWidth() < increment ? getWidth() / 2 : increment / 2;
-
-        collisionX = collidesRight();
-
-        // react to x collision
-        if (collisionX) {
-            setX(oldX);
-            velocity.x = 0;
-        }
-
-        // move on y
-        setY(getY() + velocity.y * delta);
-
-        // calculate the increment for step in #collidesBottom() and #collidesTop()
-        increment = collisionLayer.getTileHeight();
-        increment = getHeight() < increment ? getHeight() / 2 : increment / 2;
-
-        if (velocity.y < 0) // going down
-        {
-            collisionY = collidesBottom();
-        } else if (velocity.y > 0) // going up
-        {
-            collisionY = collidesTop();
-        }
-
-        // react to y collision
-        if (collisionY) {
-            setY(oldY);
-            velocity.y = 0;
-        }
-        if (velocity.x < 0) // going left
-        {
-            collisionX = collidesLeft();
-        } else if (velocity.x > 0) // going right
-        {
-            collisionX = collidesRight();
-        }
-
-        // react to x collision
-        if (collisionX) {
-            setX(oldX);
-            velocity.x = 0;
-        }
-
-        // move on y
-        setY(getY() + velocity.y * delta);
-
-        // calculate the increment for step in #collidesBottom() and #collidesTop()
-        increment = collisionLayer.getTileHeight();
-        increment = getHeight() < increment ? getHeight() / 2 : increment / 2;
-
-        if (velocity.y < 0) // going down
-        {
-            collisionY = collidesBottom();
-        } else if (velocity.y > 0) // going up
-        {
-            collisionY = collidesTop();
-        }
-
-        // react to y collision
-        if (collisionY) {
-            setY(oldY);
-            velocity.y = 0;
-        }
-
-        }
-
-    //inputs 
-    @Override
-    public boolean keyDown(int i) {
-        switch(i) {
-        case Keys.W:
-                velocity.y = speed;
-                System.out.println("W");
-                break;
-        case Keys.A:
-                velocity.x = -speed;
-                System.out.println("A");
-                break;   
-        case Keys.D:
-                velocity.x = speed;
-                System.out.println("D");
-                break;
-        case Keys.S:
-                velocity.y = -speed; 
-                System.out.println("S");
-                System.out.println(velocity.y);
-                break;
-        }
-        return true;
     }
-
-    @Override
-    public boolean keyUp(int i) {
-        switch(i) {
-        case Keys.W:
-                velocity.y = 0;
-                break;
-        case Keys.A:
-                velocity.x = 0;
-                break;
-        case Keys.D:
-                velocity.x = 0;
-                break;
-        case Keys.S:
-                velocity.y = 0;
-                System.out.println("S let go");
-                System.out.println(velocity.y);
-        }   
-        return true;
-    }
-
-    @Override
-    public boolean keyTyped(char c) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int i, int i1, int i2) {
-        return false;    
-    }
-
-    @Override
-    public boolean mouseMoved(int i, int i1) {
-        return false;    
-    }
-
-    @Override
-    public boolean scrolled(int i) {
-        return false;    
-    }
-    
-    private boolean isCellBlocked(float x, float y) {
-	Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
-	return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
-	}
-
-    public boolean collidesRight() {
-	boolean collides = false;
-
-	for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-		if(collides = isCellBlocked(getX() + getWidth(), getY() + step))
-			break;
-
-	return collides;
-	}
-
-    public boolean collidesLeft() {
-	boolean collides = false;
-
-	for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-		if(collides = isCellBlocked(getX(), getY() + step))
-			break;
-
-	return collides;
-	}
-
-    public boolean collidesTop() {
-	boolean collides = false;
-
-	for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-		if(collides = isCellBlocked(getX() + step, getY() + getHeight()))
-			break;
-
-	return collides;
-
-	}
-
-    public boolean collidesBottom() {
-	boolean collides = false;
-
-	for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-		if(collides = isCellBlocked(getX() + step, getY()))
-			break;
-
-	return collides;
-
-	}
-
-    public Vector2 getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(Vector2 velocity) {
-        this.velocity = velocity;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public TiledMapTileLayer getCollisionLayer() {
-        return collisionLayer;
-    }
-
-    public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
-        this.collisionLayer = collisionLayer;
-    }*/
+  
 }
 

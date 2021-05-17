@@ -19,14 +19,11 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.WorldMap;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
@@ -44,9 +41,6 @@ public class Game implements ApplicationListener {
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    //private OrthographicCamera camera;
     private SpriteBatch batch;
     private BitmapFont font;
     
@@ -84,26 +78,6 @@ public class Game implements ApplicationListener {
         
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
-
-            //for finding files
-//        System.out.println(Gdx.files.internal("maps/mapforproject.tmx").file().getAbsolutePath());
-        
-
-//        TmxMapLoader loader = new TmxMapLoader();
-//        map = loader.load("maps/mapforproject.tmx"); 
-//
-//        renderer = new OrthogonalTiledMapRenderer(map);
-//        sr = new ShapeRenderer();
-//            //sr.setColor(Color.CYAN);
-//        Gdx.gl.glLineWidth(3);
-//
-
-//        camera = new OrthographicCamera();
-
-//            //player = new Player(new Sprite(new Texture("img/88874.png")), (TiledMapTileLayer) map.getLayers().get(0));
-//            //player.setPosition(11 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getHeight() - 14) * player.getCollisionLayer().getTileHeight());
-//
-//            //Gdx.input.setInputProcessor(player);
     }
 
     @Override
@@ -195,32 +169,6 @@ public class Game implements ApplicationListener {
         for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList) {
             postEntityProcessorService.process(gameData, world);
         }
-    }
-
-    private void draw() {
-        batch.begin();
-        for (Entity entity : world.getEntities()) {
-//            sr.setColor(1, 1, 1, 1);
-//
-//            sr.begin(ShapeRenderer.ShapeType.Line);
-//
-//            float[] shapex = entity.getShapeX();
-//            float[] shapey = entity.getShapeY();
-//
-//            for (int i = 0, j = shapex.length - 1;
-//                    i < shapex.length;
-//                    j = i++) {
-//
-//                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-//            }
-//
-//            sr.end();
-            //entity.getSprite().draw(batch);
-            Sprite sprite = new Sprite(new Texture("img/88874.png"), 0, 0, 20, 22);
-            sprite.setPosition(300, 300);
-            sprite.draw(batch);
-        }
-        batch.end();
     }
 
     @Override
