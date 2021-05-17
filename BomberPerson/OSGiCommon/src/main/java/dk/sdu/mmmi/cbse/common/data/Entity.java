@@ -18,6 +18,7 @@ public class Entity extends ApplicationAdapter implements Serializable {
     private Map<Class, EntityPart> parts;
     private Sprite sprite;
     private boolean isCollidable;
+    private boolean player;
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
@@ -86,5 +87,15 @@ public class Entity extends ApplicationAdapter implements Serializable {
     public Sprite getSprite(){
         return this.sprite;
     }
+
+    public boolean isPlayer() {
+        return player;
+    }
+
+    public void setPlayer(boolean player) {
+        this.player = player;
+    }
+    
+    
 
 }

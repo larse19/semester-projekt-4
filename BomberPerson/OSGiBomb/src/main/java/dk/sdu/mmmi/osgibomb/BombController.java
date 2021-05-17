@@ -17,7 +17,7 @@ import java.util.List;
 public class BombController implements IEntityProcessingService, BombSPI{
     
     private ExplosionSPI espi = new ExplosionSystem();
-    private int blastRadius = 3;
+    private static int blastRadius = 1;
     
     @Override
     public void process(GameData gameData, World world) {
@@ -37,7 +37,7 @@ public class BombController implements IEntityProcessingService, BombSPI{
             
             if(timerPart.getExpiration() <= 0){
                 TiledMapTileLayer layer = (TiledMapTileLayer) world.getWorldMap().getMap().getLayers().get("Walls");
-                for (int i = 1; i < blastRadius; i++) {
+                for (int i = 1; i <= blastRadius; i++) {
                     int distance = 32 * i;
                     
                     //check top
@@ -142,4 +142,14 @@ public class BombController implements IEntityProcessingService, BombSPI{
             world.addEntity(bomb);
         }
     }
+
+    public static int getBlastRadius() {
+        return blastRadius;
+    }
+
+    public static void setBlastRadius(int blastRadius) {
+        BombController.blastRadius = blastRadius;
+    }
+    
+    
 }
