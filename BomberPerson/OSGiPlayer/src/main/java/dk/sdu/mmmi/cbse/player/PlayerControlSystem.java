@@ -72,7 +72,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             numOfDisplayedInventoryBombs = world.getEntities(BombCounter.class).size();
             inventory = player_.getInventorySize() - bombsInWorld;
             
-            System.out.println("inv: " + inventory + " -disp: " + numOfDisplayedInventoryBombs + " -bombs: " + bombsInWorld);
+            //System.out.println("inv: " + inventory + " -disp: " + numOfDisplayedInventoryBombs + " -bombs: " + bombsInWorld);
             while(inventory < numOfDisplayedInventoryBombs){
                 System.out.println("heh");
                 for(Entity bomb : world.getEntities(BombCounter.class)){
