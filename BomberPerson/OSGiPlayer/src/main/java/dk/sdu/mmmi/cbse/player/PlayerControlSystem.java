@@ -55,22 +55,43 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             //Bomb inventory system
             int bombsInWorld = world.getEntities(ClassicBomb.class).size();
-            int numOfDisplayedInventoryBombs = player_.getInventorySize() - bombsInWorld;
-            for(Entity e : world.getEntities(BombCounter.class)){
-                world.removeEntity(e);
+            int numOfDisplayedInventoryBombs = world.getEntities(BombCounter.class).size();
+            int inventory = player_.getInventorySize() - bombsInWorld;
+            
+            if(inventory > numOfDisplayedInventoryBombs){
+                for(int i = numOfDisplayedInventoryBombs; i < inventory; i++){
+                    Entity bombCounter = new BombCounter(400+(i* 32), 577);
+                    bombCounter.add(new PositionPart(400+(i* 32), 577));
+                    world.addEntity(bombCounter);
+                    PositionPart bombPP = bombCounter.getPart(PositionPart.class);
+                    bombPP.process(gameData, player);
+                    }    
             }
-            for(int i = 0; i < numOfDisplayedInventoryBombs; i++){
-                Entity bombCounter = new BombCounter(400+(i* 32), 577);
-                bombCounter.add(new PositionPart(i * 32, 0));
-                world.addEntity(bombCounter);
-            }            
+            
+            bombsInWorld = world.getEntities(ClassicBomb.class).size();
+            numOfDisplayedInventoryBombs = world.getEntities(BombCounter.class).size();
+            inventory = player_.getInventorySize() - bombsInWorld;
+            
+            System.out.println("inv: " + inventory + " -disp: " + numOfDisplayedInventoryBombs + " -bombs: " + bombsInWorld);
+            while(inventory < numOfDisplayedInventoryBombs){
+                System.out.println("heh");
+                for(Entity bomb : world.getEntities(BombCounter.class)){
+                    PositionPart pp = bomb.getPart(PositionPart.class);
+                    if(pp.getX() >= 400 + ((numOfDisplayedInventoryBombs - 1) * 32)){
+                        world.removeEntity(bomb);
+                        numOfDisplayedInventoryBombs--;
+                    }
+                }
+            }
+            
+                      
             
             if (gameData.getKeys().isDown(GameKeys.SPACE)) {
                 placingBomb = true;            
             }else{
                 if(placingBomb){
                     placingBomb = false;
-                    if(numOfDisplayedInventoryBombs > 0){
+                    if(inventory > 0){
                         player_.getBombSPI().createBomb(player, world, gameData);
                     }
                 }
