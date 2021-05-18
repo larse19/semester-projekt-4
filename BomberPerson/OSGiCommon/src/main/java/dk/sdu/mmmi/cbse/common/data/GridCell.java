@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.ogsiai;
+package dk.sdu.mmmi.cbse.common.data;
 
 
 public class GridCell{

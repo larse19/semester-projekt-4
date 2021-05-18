@@ -40,10 +40,15 @@ public class Collider implements IPostEntityProcessingService{
                     //System.out.println(colliderObject.getPart(DamagePart.class) != null);
                     DamagePart dp = colliderObject.getPart(DamagePart.class);
                     if(dp != null){
-                        LifePart lp = entity.getPart(LifePart.class);
-                        if(lp != null){
-                            lp.damage(dp.getDamage());
+                        if(!dp.isCanDamageEnemies() && !entity.isPlayer()){
+                            System.out.println("enemy can't damage yourself");
+                        }else{
+                            LifePart lp = entity.getPart(LifePart.class);
+                            if(lp != null){
+                                lp.damage(dp.getDamage());
+                            }
                         }
+                        
                     }
                 }
                 

@@ -8,6 +8,8 @@ package dk.sdu.mmmi.osgicommonenemy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.GridCell;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,10 +17,19 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
  */
 public class Enemy extends Entity{
 
+    private ArrayList<GridCell> path = new ArrayList<>();
     
     public Enemy(){
     }
-    
 
+    public ArrayList<GridCell> getPath() {
+        return path;
+    }
+
+    public void setPath(ArrayList<GridCell> path) {
+        this.path = path;
+    }
+    
+    
    
 }

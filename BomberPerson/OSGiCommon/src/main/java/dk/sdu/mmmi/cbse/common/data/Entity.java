@@ -18,7 +18,7 @@ public class Entity extends ApplicationAdapter implements Serializable {
     private Map<Class, EntityPart> parts;
     private Sprite sprite;
     private boolean isCollidable;
-    private boolean player;
+    private boolean player = false;
     
     public Entity() {
         parts = new ConcurrentHashMap<>();

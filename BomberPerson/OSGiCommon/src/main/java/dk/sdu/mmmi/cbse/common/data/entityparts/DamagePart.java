@@ -7,9 +7,14 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 public class DamagePart implements EntityPart{
     
     private int damage;
+    private boolean canDamageEnemies = true;
     
     public DamagePart(int damage){
         this.damage = damage;
+    }
+    public DamagePart(int damage, boolean canDamageEnemies){
+        this.damage = damage;
+        this.canDamageEnemies = canDamageEnemies;
     }
 
     public int getDamage() {
@@ -18,6 +23,14 @@ public class DamagePart implements EntityPart{
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public boolean isCanDamageEnemies() {
+        return canDamageEnemies;
+    }
+
+    public void setCanDamageEnemies(boolean canDamageEnemies) {
+        this.canDamageEnemies = canDamageEnemies;
     }
 
     @Override

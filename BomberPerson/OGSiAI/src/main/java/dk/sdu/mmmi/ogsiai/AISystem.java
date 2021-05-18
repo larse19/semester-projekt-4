@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.GridCell;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.TimerPart;
@@ -11,6 +12,8 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.player.Player;
 import dk.sdu.mmmi.osgicommonenemy.Enemy;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class AISystem implements IEntityProcessingService{
     
@@ -20,14 +23,22 @@ public class AISystem implements IEntityProcessingService{
             TimerPart tp = timer.getPart(TimerPart.class);
             tp.process(gameData, timer);
             if(tp.getExpiration() < 0){
-                Entity player = world.getEntities(Player.class).get(0);
-                GridCell goalCell = getPlayerCell(player);
-                for(Entity enemy : world.getChildrenOfParent(Enemy.class)){
-                    GridCell[][] stateSpace = setupStateSpace(world);
-                    GridCell initialState = getEntityGridCell(stateSpace, enemy);
-                    renderPath(world, aStarSearch(stateSpace, initialState, goalCell));
-                    tp.setExpiration(1);
+                List<Entity> players = world.getEntities(Player.class);
+                if(!players.isEmpty()){
+                    Entity player = players.get(0);
+                    GridCell goalCell = getPlayerCell(player);
+                    for(Entity enemy : world.getChildrenOfParent(Enemy.class)){
+                        GridCell[][] stateSpace = setupStateSpace(world);
+                        GridCell initialState = getEntityGridCell(stateSpace, enemy);
+                        ArrayList<Node> path = aStarSearch(stateSpace, initialState, goalCell);
+                        renderPath(world, path);
+                        Enemy enemy_ = (Enemy)enemy;
+                        Collections.reverse(path);
+                        enemy_.setPath(nodesToCells(path));
+                        tp.setExpiration(1);
+                    }
                 }
+                
             }
         }
     }
@@ -52,6 +63,14 @@ public class AISystem implements IEntityProcessingService{
             searchDepth++;
         }
         return new ArrayList<Node>();
+    }
+    
+    private ArrayList<GridCell> nodesToCells(ArrayList<Node> nodes){
+        ArrayList<GridCell> cells = new ArrayList<>();
+        for(Node node : nodes){
+            cells.add(node.getState());
+        }
+        return cells;
     }
     
     //Returns array [x,y] with arrayCoords for given node in stateSpace

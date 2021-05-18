@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.ogsiai;
 
+import dk.sdu.mmmi.cbse.common.data.GridCell;
 import java.util.ArrayList;
 
 public class Node {

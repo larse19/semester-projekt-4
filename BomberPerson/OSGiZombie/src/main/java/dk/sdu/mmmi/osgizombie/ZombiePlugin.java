@@ -28,7 +28,7 @@ public class ZombiePlugin implements IGamePluginService{
         zombie.add(new LifePart(1));
         zombie.add(new DamagePart(2));
         zombie.add(new MovingPart(100, world));
-        //world.addEntity(zombie);
+        world.addEntity(zombie);
         
 //        zombie = new Enemy();
 //        zombie.add(new PositionPart(32, 550));
