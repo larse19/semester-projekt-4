@@ -26,7 +26,7 @@ public class FireEnemyPlugin implements IGamePluginService{
         Entity fireEnemy = new FireEnemy();
         fireEnemy.add(new PositionPart(32, 550));
         fireEnemy.add(new LifePart(10));
-        fireEnemy.add(new DamagePart(5));
+        fireEnemy.add(new DamagePart(5, false));
         fireEnemy.add(new MovingPart(50, world));
         fireEnemy.add(new TimerPart(4.5f));
         world.addEntity(fireEnemy);       
