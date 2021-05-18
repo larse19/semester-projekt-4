@@ -5,10 +5,10 @@
  */
 package dk.sdu.mmmi.osgifireenemy;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.GridCell;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.DamagePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
@@ -39,6 +39,10 @@ public class FireEnemyController implements IEntityProcessingService, ExplosionS
            LifePart lp = fireEnemy.getPart(LifePart.class);
            lp.process(gameData, fireEnemy);
            
+           if(lp.getLife() <= 0){
+               world.removeEntity(fireEnemy);
+           }
+           
            boolean furtherTop = true, furtherRight = true, furtherBottom = true, furtherLeft = true;
            List<Integer[]> spawnPlaces = new ArrayList<>();
            PositionPart pp = fireEnemy.getPart(PositionPart.class);
@@ -47,13 +51,44 @@ public class FireEnemyController implements IEntityProcessingService, ExplosionS
            MovingPart movingPart = fireEnemy.getPart(MovingPart.class);
            TimerPart tp = fireEnemy.getPart(TimerPart.class);
            
-           if(pp.getX() < 40){
-                movingPart.setRight(true);
-                movingPart.setLeft(false);
-           } 
-           else if(pp.getX() > 550){
-                movingPart.setRight(false);
-                movingPart.setLeft(true);
+           Enemy fireEnemy_ = (Enemy) fireEnemy;
+            if(fireEnemy_.getPath().size() > 0){
+                GridCell fireEnemyCell = getEnemyCell(fireEnemy);
+                int currentIndex = fireEnemy_.getPath().indexOf(fireEnemyCell);
+                System.out.println(fireEnemy_.getPath().indexOf(fireEnemyCell));
+                if(fireEnemy_.getPath().size() > currentIndex + 1){
+                    if(pp.getX() < fireEnemy_.getPath().get(currentIndex + 1 ).getX()){
+                        movingPart.setRight(true);
+                        movingPart.setLeft(false);
+                    }else if(pp.getX() > fireEnemy_.getPath().get(currentIndex + 1 ).getX()){
+                        movingPart.setRight(false);
+                        movingPart.setLeft(true);
+                    }
+                    if((int)pp.getX() == (int)fireEnemy_.getPath().get(currentIndex + 1 ).getX()){
+                        movingPart.setRight(false);
+                        movingPart.setLeft(false);
+                    }
+                    if(pp.getY() < fireEnemy_.getPath().get(currentIndex + 1 ).getY()){
+                        movingPart.setUp(true);
+                        movingPart.setDown(false);
+                    }else if(pp.getY() > fireEnemy_.getPath().get(currentIndex + 1 ).getY()){
+                        movingPart.setUp(false);
+                        movingPart.setDown(true);
+                    }
+                    if((int)pp.getY() == (int)fireEnemy_.getPath().get(currentIndex + 1 ).getY()){
+                        movingPart.setUp(false);
+                        movingPart.setDown(false);
+                    }
+                }
+            }else{
+                if(pp.getX() < 40){
+                    movingPart.setRight(true);
+                    movingPart.setLeft(false);
+                } 
+                else if(pp.getX() > 550){
+                     movingPart.setRight(false);
+                     movingPart.setLeft(true);
+                 }
             }
            
            movingPart.process(gameData, fireEnemy);
@@ -116,11 +151,6 @@ public class FireEnemyController implements IEntityProcessingService, ExplosionS
                     }
                 }
                 
-                
-                //Explosion at bombs location
-//                Integer[] coords = {(int) pp.getX(), (int) pp.getY()};
-//                spawnPlaces.add(coords);
-                
                 for (Integer[] spawnPlace : spawnPlaces) {
                     espi.createExplosion(spawnPlace[0], spawnPlace[1], world);
                 } 
@@ -131,6 +161,13 @@ public class FireEnemyController implements IEntityProcessingService, ExplosionS
         }
 
   }
+    
+    private GridCell getEnemyCell(Entity enemy){
+        PositionPart playerPP = enemy.getPart(PositionPart.class);
+        int playerX = (int)(playerPP.getX() / 32) * 32; //Converts the entity pos to a multiplier of 32
+        int playerY = (int)(playerPP.getY() / 32) * 32;
+        return new GridCell(playerX, playerY, true);
+    }
     
   private boolean isCellDestructable(float x, float y, TiledMapTileLayer collisionLayer) {
         TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
@@ -147,7 +184,7 @@ public class FireEnemyController implements IEntityProcessingService, ExplosionS
         Entity explosion = new Explosion();
         explosion.add(new PositionPart(x, y));
         explosion.add(new TimerPart(0.5f));
-        explosion.add(new DamagePart(1));
+        explosion.add(new DamagePart(1, false));
         explosion.create();
         explosion.getSprite().setPosition(x, y);
         world.addEntity(explosion);

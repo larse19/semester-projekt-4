@@ -40,10 +40,15 @@ public class Collider implements IPostEntityProcessingService{
                     //System.out.println(colliderObject.getPart(DamagePart.class) != null);
                     DamagePart dp = colliderObject.getPart(DamagePart.class);
                     if(dp != null){
-                        LifePart lp = entity.getPart(LifePart.class);
-                        if(lp != null){
-                            lp.damage(dp.getDamage());
+                        if(!dp.isCanDamageEnemies() && !entity.isPlayer()){
+                            System.out.println("enemy can't damage yourself");
+                        }else{
+                            LifePart lp = entity.getPart(LifePart.class);
+                            if(lp != null){
+                                lp.damage(dp.getDamage());
+                            }
                         }
+                        
                     }
                 }
                 
@@ -52,22 +57,25 @@ public class Collider implements IPostEntityProcessingService{
     }
     
     public Boolean Collides(Entity entity, Entity entity2) {
-        PositionPart entMov = entity.getPart(PositionPart.class);
-        PositionPart entMov2 = entity2.getPart(PositionPart.class);
-        float spriteHeight1 = entity.getSprite().getHeight();
-        float spriteHeight2 = entity2.getSprite().getHeight();
-        float spriteWidth1 = entity.getSprite().getWidth();
-        float spriteWidth2 = entity2.getSprite().getWidth();
-        
-        //Collision
-        if (entMov.getX() < (entMov2.getX() + spriteWidth2) &&
-                (entMov.getX() + spriteWidth1) > entMov2.getX() &&
-                entMov.getY() < (entMov2.getY() + spriteHeight2) &&
-                (entMov.getY() + spriteHeight1) > entMov2.getY()){
-            return true;
-        } else {
+        try{
+            PositionPart entMov = entity.getPart(PositionPart.class);
+            PositionPart entMov2 = entity2.getPart(PositionPart.class);
+            float spriteHeight1 = entity.getSprite().getHeight();
+            float spriteHeight2 = entity2.getSprite().getHeight();
+            float spriteWidth1 = entity.getSprite().getWidth();
+            float spriteWidth2 = entity2.getSprite().getWidth();
+
+            //Collision
+            if (entMov.getX() < (entMov2.getX() + spriteWidth2) &&
+                    (entMov.getX() + spriteWidth1) > entMov2.getX() &&
+                    entMov.getY() < (entMov2.getY() + spriteHeight2) &&
+                    (entMov.getY() + spriteHeight1) > entMov2.getY()){
+                return true;
+            } else {
+                return false;
+            }
+        }catch(NullPointerException e){
             return false;
         }
-        
     }
 }

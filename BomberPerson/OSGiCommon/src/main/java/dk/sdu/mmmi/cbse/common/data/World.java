@@ -1,11 +1,5 @@
 package dk.sdu.mmmi.cbse.common.data;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.MapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -55,6 +49,18 @@ public class World {
         }
         return r;
     }
+    
+    public <E extends Entity> List<Entity> getChildrenOfParent(Class<E>... parentTypes){
+        List<Entity> r = new ArrayList<>();
+        for(Entity e : getEntities()){
+            for (Class<E> parentType : parentTypes){
+                if(e.getClass().getSuperclass().equals(parentType)){
+                    r.add(e);
+                }
+            }
+        }
+        return r;
+    } 
 
     public Entity getEntity(String ID) {
         return entityMap.get(ID);
