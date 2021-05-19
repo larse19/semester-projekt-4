@@ -31,7 +31,7 @@ public class Node {
     public float getH(GridCell goalCell){
         // final multiplier is weighted
         return ((Math.abs(this.getState().getX() - goalCell.getX()) +
-                Math.abs(this.getState().getY() - goalCell.getY())) * 2 
+                Math.abs(this.getState().getY() - goalCell.getY())) * 3 
                 );
     }
     

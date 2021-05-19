@@ -19,6 +19,7 @@ public class Entity extends ApplicationAdapter implements Serializable {
     private Sprite sprite;
     private boolean isCollidable;
     private boolean player = false;
+    private float width, height;
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
@@ -81,6 +82,8 @@ public class Entity extends ApplicationAdapter implements Serializable {
     }
     
     public void setSprite(Sprite sprite){
+        setWidth(sprite.getWidth());
+        setHeight(sprite.getHeight());
         this.sprite = sprite;
     }
     
@@ -94,6 +97,22 @@ public class Entity extends ApplicationAdapter implements Serializable {
 
     public void setPlayer(boolean player) {
         this.player = player;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
     
     

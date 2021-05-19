@@ -55,7 +55,6 @@ public class FireEnemyController implements IEntityProcessingService, ExplosionS
             if(fireEnemy_.getPath().size() > 0){
                 GridCell fireEnemyCell = getEnemyCell(fireEnemy);
                 int currentIndex = fireEnemy_.getPath().indexOf(fireEnemyCell);
-                System.out.println(fireEnemy_.getPath().indexOf(fireEnemyCell));
                 if(fireEnemy_.getPath().size() > currentIndex + 1){
                     if(pp.getX() < fireEnemy_.getPath().get(currentIndex + 1 ).getX()){
                         movingPart.setRight(true);

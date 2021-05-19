@@ -40,7 +40,7 @@ public class MapPlugin implements IGamePluginService  {
 
     @Override
     public void stop(GameData gameData, World world) {
-        world.setWorldMap(null);
+        //world.setWorldMap(null);
     }
         
 //    private TiledMap createMap(GameData gameData) {

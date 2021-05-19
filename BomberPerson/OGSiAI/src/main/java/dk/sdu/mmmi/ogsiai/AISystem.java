@@ -19,22 +19,36 @@ public class AISystem implements IEntityProcessingService{
     
     @Override
     public void process(GameData gameData, World world) {
+        // Uses an entity with a timerpart to only call astarsearch once a second,
+        // in order to improve performance
         for(Entity timer : world.getEntities(AStarTimer.class)){
             TimerPart tp = timer.getPart(TimerPart.class);
             tp.process(gameData, timer);
             if(tp.getExpiration() < 0){
+                
                 List<Entity> players = world.getEntities(Player.class);
                 if(!players.isEmpty()){
                     Entity player = players.get(0);
                     GridCell goalCell = getPlayerCell(player);
+                    
+                    //Calls astarsearch for all entities that inherit from Enemy
                     for(Entity enemy : world.getChildrenOfParent(Enemy.class)){
+                        //Creates the stateSpace
                         GridCell[][] stateSpace = setupStateSpace(world);
+                        
+                        //Gets the initialState (the gridcell where the enemy exists)
                         GridCell initialState = getEntityGridCell(stateSpace, enemy);
+                        
+                        //Run A star search
                         ArrayList<Node> path = aStarSearch(stateSpace, initialState, goalCell);
                         renderPath(world, path);
+                        
+                        //Sets the path on the enemy object
                         Enemy enemy_ = (Enemy)enemy;
                         Collections.reverse(path);
                         enemy_.setPath(nodesToCells(path));
+                        
+                        //Reset timer
                         tp.setExpiration(1);
                     }
                 }
@@ -49,15 +63,21 @@ public class AISystem implements IEntityProcessingService{
         Node node = new Node(initialState);
         fringe.add(node);
         int searchDepth = 0;
+        
         while (!fringe.isEmpty()){
             node = aStarNode(fringe, goalCell);
+            
+            //Escape clause, to prevent endless searching if no path is found
             if(node.getDepth() > 50 || searchDepth > 100){
                 return new ArrayList<Node>();
             }
-            System.out.println("Astar node: " + node.toString());
+            
+            //Found a path to the goal
             if (node.getState().equals(goalCell)){
                 return node.path();
-            }            
+            }
+
+            //Adds children to the fringe
             ArrayList<Node> children = expand(stateSpace, node);
             fringe.addAll(children);
             searchDepth++;
@@ -65,6 +85,7 @@ public class AISystem implements IEntityProcessingService{
         return new ArrayList<Node>();
     }
     
+    //Converts an arraylist of nodes to an arraylist of GridCells
     private ArrayList<GridCell> nodesToCells(ArrayList<Node> nodes){
         ArrayList<GridCell> cells = new ArrayList<>();
         for(Node node : nodes){
@@ -94,6 +115,7 @@ public class AISystem implements IEntityProcessingService{
         return coords;
     }
     
+    //Returns the gridcell containing the player
     private GridCell getPlayerCell(Entity player){
         PositionPart playerPP = player.getPart(PositionPart.class);
         int playerX = (int)(playerPP.getX() / 32) * 32; //Converts the entity pos to a multiplier of 32
@@ -107,14 +129,13 @@ public class AISystem implements IEntityProcessingService{
         for(Node node : fringe){
             if(node.getF(goalCell) < lowest.getF(goalCell)){
                 lowest = node;
-                               
             }
         }
         fringe.remove(lowest); 
         return lowest;
     }
     
-    // Returns the node on stateSpace at the entitis location
+    // Returns the node from stateSpace, at the entitis location
     private GridCell getEntityGridCell(GridCell[][] stateSpace, Entity entity){
         PositionPart entityPP = entity.getPart(PositionPart.class);
         int entityX = (int)(entityPP.getX() / 32) * 32; //Converts the entity pos to a multiplier of 32
@@ -156,10 +177,15 @@ public class AISystem implements IEntityProcessingService{
         return neighbors;
     }
     
+    //Loops through the successors of a node and returns an arraylist with the nodes
     private ArrayList<Node> expand(GridCell[][] stateSpace, Node node){
         ArrayList<Node> successors = new ArrayList<>();
+        
+        //Gets the coordiantes (indexes) for the node in the statespace array
         int[] nodeCoordsInArray = getNodeCoordsInArray(stateSpace, node);
         ArrayList<GridCell> children = successorFunction(stateSpace, nodeCoordsInArray[0], nodeCoordsInArray[1]);
+        
+        //Loops through all children and creates nodes with the gridcells as states
         for(GridCell child : children){
             Node s = new Node(child);
             s.setParent(node);
@@ -222,7 +248,6 @@ public class AISystem implements IEntityProcessingService{
                     world.removeEntity(e);
             }
             for(Node node : path){
-                System.out.println("Path: " + node.toString());
                 Rectangle erect = new Rectangle(node.getState().getX(), node.getState().getY(), false, true);
                 erect.add(new PositionPart(node.getState().getX(), node.getState().getX()));
                 world.addEntity(erect);

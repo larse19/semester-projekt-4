@@ -41,7 +41,6 @@ public class Collider implements IPostEntityProcessingService{
                     DamagePart dp = colliderObject.getPart(DamagePart.class);
                     if(dp != null){
                         if(!dp.isCanDamageEnemies() && !entity.isPlayer()){
-                            System.out.println("enemy can't damage yourself");
                         }else{
                             LifePart lp = entity.getPart(LifePart.class);
                             if(lp != null){
@@ -60,16 +59,16 @@ public class Collider implements IPostEntityProcessingService{
         try{
             PositionPart entMov = entity.getPart(PositionPart.class);
             PositionPart entMov2 = entity2.getPart(PositionPart.class);
-            float spriteHeight1 = entity.getSprite().getHeight();
-            float spriteHeight2 = entity2.getSprite().getHeight();
-            float spriteWidth1 = entity.getSprite().getWidth();
-            float spriteWidth2 = entity2.getSprite().getWidth();
+            float height1 = entity.getHeight();
+            float height2 = entity2.getHeight();
+            float width1 = entity.getWidth();
+            float width2 = entity2.getWidth();
 
             //Collision
-            if (entMov.getX() < (entMov2.getX() + spriteWidth2) &&
-                    (entMov.getX() + spriteWidth1) > entMov2.getX() &&
-                    entMov.getY() < (entMov2.getY() + spriteHeight2) &&
-                    (entMov.getY() + spriteHeight1) > entMov2.getY()){
+            if (entMov.getX() < (entMov2.getX() + width2) &&
+                    (entMov.getX() + width1) > entMov2.getX() &&
+                    entMov.getY() < (entMov2.getY() + height2) &&
+                    (entMov.getY() + height1) > entMov2.getY()){
                 return true;
             } else {
                 return false;
