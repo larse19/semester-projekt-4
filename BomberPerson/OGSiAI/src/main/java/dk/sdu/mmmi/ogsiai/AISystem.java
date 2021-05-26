@@ -36,13 +36,14 @@ public class AISystem implements IEntityProcessingService{
                     for(Entity enemy : world.getChildrenOfParent(Enemy.class)){
                         //Creates the stateSpace
                         GridCell[][] stateSpace = setupStateSpace(world);
+                        //renderGridCells(world, stateSpace);
                         
                         //Gets the initialState (the gridcell where the enemy exists)
                         GridCell initialState = getEntityGridCell(stateSpace, enemy);
                         
                         //Run A star search
                         ArrayList<Node> path = aStarSearch(stateSpace, initialState, goalCell);
-                        renderPath(world, path);
+                        //renderPath(world, path);
                         
                         //Sets the path on the enemy object
                         Enemy enemy_ = (Enemy)enemy;
@@ -233,12 +234,13 @@ public class AISystem implements IEntityProcessingService{
     
     // Shows rectangles (for debugging)
     private void renderGridCells(World world, GridCell[][] stateSpace){
+        System.out.println(stateSpace[0][0].isBlocked());
             for(Entity e : world.getEntities(Rectangle.class)){
                 world.removeEntity(e);
             }
             for (int y = 0; y < stateSpace.length; y++) {
                 for (int x = 0; x < stateSpace[y].length; x++) {
-                        Rectangle erect = new Rectangle(stateSpace[y][x].getX(), stateSpace[y][x].getY(), stateSpace[y][x].isBlocked(), stateSpace[y][x].isPath());
+                        Rectangle erect = new Rectangle(stateSpace[y][x].getX(), stateSpace[y][x].getY(), stateSpace[y][x].isBlocked(), false);
                         erect.add(new PositionPart(x, y));
                         world.addEntity(erect);
                 }

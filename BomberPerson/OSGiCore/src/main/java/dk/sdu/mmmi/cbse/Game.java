@@ -82,23 +82,14 @@ public class Game implements ApplicationListener {
 
     @Override
     public void render() {
-//         clear screen to black
+//      clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
         
-        WorldMap worldMap = world.getWorldMap();
-        
-
-        
-//        batch.begin();
-//            font.setColor(Color.WHITE);
-//            font.scale(50);
-//            font.draw(batch, "Hello World!", 100, 100);
-//        batch.end();
-        
+        WorldMap worldMap = world.getWorldMap();      
         
             
         try {
@@ -106,8 +97,6 @@ public class Game implements ApplicationListener {
             
             Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2, layer0.getHeight() * layer0.getTileHeight() / 2, 0);  
             cam.position.set(center);
-
-            //camera.position.set(player.getWidth(), player.getHeight(), 0);
 
             cam.update();             
 
@@ -121,6 +110,7 @@ public class Game implements ApplicationListener {
 
         batch.begin();
         for (Entity entity : world.getEntities()) {
+            //System.out.println(entity);
             try{
                 entity.getSprite().draw(batch);
             }catch(NullPointerException e){
@@ -143,20 +133,6 @@ public class Game implements ApplicationListener {
         font.setScale(1);
         font.draw(batch, "Bombs:", 350, 601);
         batch.end();
-
-//
-//            renderer.getBatch().begin();
-//            player.draw(renderer.getBatch());
-//            renderer.getBatch().end();
-
-//        for (MapObject object : map.getLayers().get("Life").getObjects()) {
-//            if (object instanceof TextureMapObject) {
-//                Texture text = ((TextureMapObject) object);
-//                
-//            }
-//        }
-
-
     }
 
     private void update() {

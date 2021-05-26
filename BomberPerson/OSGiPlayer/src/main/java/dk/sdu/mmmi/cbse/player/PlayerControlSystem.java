@@ -32,7 +32,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 }
             }
             if(world.getEntities(LifeHeart.class).size() < player_.getHealth()){
-                 System.out.println("new heart");
                  int x = (player_.getHealth() + 1) * 32;
                  Entity heart = new LifeHeart(x, 577);
                  heart.add(new PositionPart(x, 577));
@@ -41,7 +40,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
            
             //Player dies
             if(lp.isDead()){
-                System.out.println("you ded");
                 world.removeEntity(player);
             }
            
@@ -74,7 +72,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
             
             //System.out.println("inv: " + inventory + " -disp: " + numOfDisplayedInventoryBombs + " -bombs: " + bombsInWorld);
             while(inventory < numOfDisplayedInventoryBombs){
-                System.out.println("heh");
                 for(Entity bomb : world.getEntities(BombCounter.class)){
                     PositionPart pp = bomb.getPart(PositionPart.class);
                     if(pp.getX() >= 400 + ((numOfDisplayedInventoryBombs - 1) * 32)){
