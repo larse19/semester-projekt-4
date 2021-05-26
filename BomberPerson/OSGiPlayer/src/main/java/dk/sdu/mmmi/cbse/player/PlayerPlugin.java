@@ -36,7 +36,6 @@ public class PlayerPlugin implements IGamePluginService {
                 world.addEntity(heart);
             }
         }
-        System.out.println("player created");
         if (world.getEntities(Player.class).isEmpty()){
             world.addEntity(player);
         }

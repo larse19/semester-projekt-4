@@ -75,7 +75,6 @@ public class Player extends Entity{
             int hp = lp.getLife();
             return hp;
         }catch(NullPointerException e){
-            System.out.println("huh get");
             return this.health;
         }
         
@@ -86,7 +85,6 @@ public class Player extends Entity{
             LifePart lp = this.getPart(LifePart.class);
             lp.setLife(health);
         }catch(NullPointerException e){ 
-            System.out.println("huh set");
         }
         this.health = health;
     }
