@@ -14,6 +14,7 @@ import dk.sdu.mmmi.osgicommonenemy.Enemy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class AISystem implements IEntityProcessingService{
     
@@ -35,13 +36,14 @@ public class AISystem implements IEntityProcessingService{
                     for(Entity enemy : world.getChildrenOfParent(Enemy.class)){
                         //Creates the stateSpace
                         GridCell[][] stateSpace = setupStateSpace(world);
+                        //renderGridCells(world, stateSpace);
                         
                         //Gets the initialState (the gridcell where the enemy exists)
                         GridCell initialState = getEntityGridCell(stateSpace, enemy);
                         
                         //Run A star search
                         ArrayList<Node> path = aStarSearch(stateSpace, initialState, goalCell);
-                        renderPath(world, path);
+                        //renderPath(world, path);
                         
                         //Sets the path on the enemy object
                         Enemy enemy_ = (Enemy)enemy;
@@ -59,13 +61,13 @@ public class AISystem implements IEntityProcessingService{
     
     // Astar search for a given entity
     public ArrayList<Node> aStarSearch (GridCell[][] stateSpace, GridCell initialState, GridCell goalCell){
-        ArrayList<Node> fringe = new ArrayList<>();
-        Node node = new Node(initialState);
+        PriorityQueue<Node> fringe = new PriorityQueue<>(new NodeComparator());
+        Node node = new Node(initialState, goalCell);
         fringe.add(node);
         int searchDepth = 0;
         
         while (!fringe.isEmpty()){
-            node = aStarNode(fringe, goalCell);
+            node = aStarNode(fringe);
             
             //Escape clause, to prevent endless searching if no path is found
             if(node.getDepth() > 50 || searchDepth > 100){
@@ -78,7 +80,7 @@ public class AISystem implements IEntityProcessingService{
             }
 
             //Adds children to the fringe
-            ArrayList<Node> children = expand(stateSpace, node);
+            ArrayList<Node> children = expand(stateSpace, node, goalCell);
             fringe.addAll(children);
             searchDepth++;
         }
@@ -124,15 +126,18 @@ public class AISystem implements IEntityProcessingService{
     }
     
     //Gets the node from the fringe with the lowest f value. Removes it from fringe
-    public Node aStarNode(ArrayList<Node> fringe, GridCell goalCell){
+    public Node aStarNode(PriorityQueue<Node> fringe){
+        return fringe.remove();
+        /*
         Node lowest = fringe.get(0);
         for(Node node : fringe){
-            if(node.getF(goalCell) < lowest.getF(goalCell)){
+            if(node.getF() < lowest.getF()){
                 lowest = node;
             }
         }
         fringe.remove(lowest); 
         return lowest;
+*/
     }
     
     // Returns the node from stateSpace, at the entitis location
@@ -178,7 +183,7 @@ public class AISystem implements IEntityProcessingService{
     }
     
     //Loops through the successors of a node and returns an arraylist with the nodes
-    private ArrayList<Node> expand(GridCell[][] stateSpace, Node node){
+    private ArrayList<Node> expand(GridCell[][] stateSpace, Node node, GridCell goalCell){
         ArrayList<Node> successors = new ArrayList<>();
         
         //Gets the coordiantes (indexes) for the node in the statespace array
@@ -187,7 +192,7 @@ public class AISystem implements IEntityProcessingService{
         
         //Loops through all children and creates nodes with the gridcells as states
         for(GridCell child : children){
-            Node s = new Node(child);
+            Node s = new Node(child, goalCell);
             s.setParent(node);
             s.setDepth(node.getDepth() + 1);
             successors.add(s);
@@ -229,12 +234,13 @@ public class AISystem implements IEntityProcessingService{
     
     // Shows rectangles (for debugging)
     private void renderGridCells(World world, GridCell[][] stateSpace){
+        System.out.println(stateSpace[0][0].isBlocked());
             for(Entity e : world.getEntities(Rectangle.class)){
                 world.removeEntity(e);
             }
             for (int y = 0; y < stateSpace.length; y++) {
                 for (int x = 0; x < stateSpace[y].length; x++) {
-                        Rectangle erect = new Rectangle(stateSpace[y][x].getX(), stateSpace[y][x].getY(), stateSpace[y][x].isBlocked(), stateSpace[y][x].isPath());
+                        Rectangle erect = new Rectangle(stateSpace[y][x].getX(), stateSpace[y][x].getY(), stateSpace[y][x].isBlocked(), false);
                         erect.add(new PositionPart(x, y));
                         world.addEntity(erect);
                 }

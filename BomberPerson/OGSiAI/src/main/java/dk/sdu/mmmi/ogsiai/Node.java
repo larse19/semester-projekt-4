@@ -7,15 +7,18 @@ public class Node {
     private GridCell state;
     private Node parent = null;
     private int depth = 0;
+    private GridCell goalCell;
 
-    public Node(GridCell state, Node parent, int depth) {
+    public Node(GridCell state, Node parent, int depth, GridCell goalCell) {
         this.state = state;
         this.parent = parent;
         this.depth = depth;
+        this.goalCell = goalCell;
     }
 
-    public Node(GridCell state) {
+    public Node(GridCell state, GridCell goalCell) {
         this.state = state;
+        this.goalCell = goalCell;
     }
     
     public ArrayList<Node> path (){
@@ -43,7 +46,7 @@ public class Node {
         return 1 + this.parent.getG();
     }
     
-    public float getF(GridCell goalCell){
+    public float getF(){
         return getH(goalCell) + getG();
     }
 
