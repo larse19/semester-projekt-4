@@ -2,16 +2,13 @@
 ## 4th Semester project
 
 ## Guide
-Download and Run the game
+### Download and run the game:
 
 Run using NetBeans:
-
 1.  Clone the master branch from the gitHub repository
 2.  Open the project en NetBeans
 3.  Run "Clean and build" on the project parent
 3.  Right click on the project parent, and clickRun maven \rightarrow pax provision
-
-
 
 If you get a pax provision error, try and set your Java platform to Java 1.8:
 
@@ -24,5 +21,7 @@ If you get a pax provision error, try and set your Java platform to Java 1.8:
   7.  Close the Java platform manager window 
   8.  In the Java platform dropdown, choose your new JDK
 
-
 The game is known to be working in NetBeans verison 11.2, so if issues still persists when trying to run the game, check what version you are using, and perhaps try and use V11.2.
+
+### Play the game
+Use the arrow keys to move the player character and use spacebar to place bombs.
