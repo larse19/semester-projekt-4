@@ -5,11 +5,11 @@
 ### Download and run the game:
 
 Run using NetBeans:
-1.  Clone the master branch from the gitHub repository
-   a.  A Zipped folder of the project can also be found on Google Drive: https://drive.google.com/drive/folders/1L2AvXAj1aGIk44IXKTpKd9oCZC0_MwaJ?usp=sharing
+1.  Clone the master branch from the gitHub repository. (A Zipped folder of the project can also be found on Google Drive: https://drive.google.com/drive/folders/1L2AvXAj1aGIk44IXKTpKd9oCZC0_MwaJ?usp=sharing)
 3.  Open the project en NetBeans
 4.  Run "Clean and build" on the project parent
 5.  Right click on the project parent, and clickRun maven \rightarrow pax provision
+
 
 If you get a pax provision error, try and set your Java platform to Java 1.8:
 
