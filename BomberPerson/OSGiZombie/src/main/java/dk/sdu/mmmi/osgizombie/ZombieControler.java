@@ -49,7 +49,7 @@ public class ZombieControler implements IEntityProcessingService{
                         movingPart.setRight(false);
                         movingPart.setLeft(true);
                     }
-                    else{
+                    if((int)positionPart.getX() == (int)zombie_.getPath().get(currentIndex + 1 ).getX()){
                         movingPart.setRight(false);
                         movingPart.setLeft(false);
                     }
@@ -60,7 +60,7 @@ public class ZombieControler implements IEntityProcessingService{
                         movingPart.setUp(false);
                         movingPart.setDown(true);
                     }
-                    else{
+                    if((int)positionPart.getY() == (int)zombie_.getPath().get(currentIndex + 1 ).getY()){
                         movingPart.setUp(false);
                         movingPart.setDown(false);
                     }
