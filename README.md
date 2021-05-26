@@ -21,7 +21,7 @@ If you get a pax provision error, try and set your Java platform to Java 1.8:
   7.  Close the Java platform manager window 
   8.  In the Java platform dropdown, choose your new JDK
 
-The game is known to be working in NetBeans verison 11.2, so if issues still persists when trying to run the game, check what version you are using, and perhaps try and use V11.2.
+The game is known to be working in NetBeans verison 11.2 on Windows 10, so if issues still persists when trying to run the game, check what version you are using, and perhaps try and use V11.2.
 
 ### Play the game
 Use the arrow keys to move the player character and use spacebar to place bombs.
