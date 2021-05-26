@@ -21,6 +21,7 @@ public class Node {
     public ArrayList<Node> path (){
         Node currentNode = this;
         ArrayList<Node> path = new ArrayList<>();
+        path.add(currentNode);
         while(currentNode.parent != null){
             currentNode = currentNode.parent;
             path.add(currentNode);
