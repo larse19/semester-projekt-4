@@ -31,6 +31,16 @@ public class MovingPart implements EntityPart {
         this.world = world;
     }
 
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    
+    
     public float getDx() {
         return dx;
     }
