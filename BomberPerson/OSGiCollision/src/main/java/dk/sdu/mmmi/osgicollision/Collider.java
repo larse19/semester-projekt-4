@@ -65,14 +65,10 @@ public class Collider implements IPostEntityProcessingService{
             float width2 = entity2.getWidth();
 
             //Collision
-            if (entMov.getX() < (entMov2.getX() + width2) &&
+            return entMov.getX() < (entMov2.getX() + width2) &&
                     (entMov.getX() + width1) > entMov2.getX() &&
                     entMov.getY() < (entMov2.getY() + height2) &&
-                    (entMov.getY() + height1) > entMov2.getY()){
-                return true;
-            } else {
-                return false;
-            }
+                    (entMov.getY() + height1) > entMov2.getY();
         }catch(NullPointerException e){
             return false;
         }
