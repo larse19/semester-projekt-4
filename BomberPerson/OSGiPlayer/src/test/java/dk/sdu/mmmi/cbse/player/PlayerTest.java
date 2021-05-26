@@ -46,7 +46,7 @@ public class PlayerTest {
     @AfterEach
     public void tearDown() {
     }
-
+/*
     @Test
     public void testPlaceBomb() {
         System.out.println("Tests if bomb is placed");
@@ -61,6 +61,6 @@ public class PlayerTest {
         List<Entity> bombs = world.getEntities(ClassicBomb.class);
         int expResult = 1;
         assertEquals(expResult, bombs.size());
-    }
+    }*/
     
 }
