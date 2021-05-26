@@ -146,13 +146,6 @@
     </dependency>
     <dependency>
       <groupId>dk.sdu.mmmi</groupId>
-      <artifactId>OSGiCollision</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>bundle</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>dk.sdu.mmmi</groupId>
       <artifactId>OSGiCommonEnemy</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>bundle</type>
@@ -169,6 +162,13 @@
       <groupId>dk.sdu.mmmi</groupId>
       <artifactId>OSGiCommonEnemy</artifactId>
       <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>dk.sdu.mmmi</groupId>
+      <artifactId>OSGiCollision</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>bundle</type>
       <scope>provided</scope>
     </dependency>
     <dependency>

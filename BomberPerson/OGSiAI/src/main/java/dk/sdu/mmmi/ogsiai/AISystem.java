@@ -58,7 +58,7 @@ public class AISystem implements IEntityProcessingService{
     }
     
     // Astar search for a given entity
-    private ArrayList<Node> aStarSearch (GridCell[][] stateSpace, GridCell initialState, GridCell goalCell){
+    public ArrayList<Node> aStarSearch (GridCell[][] stateSpace, GridCell initialState, GridCell goalCell){
         ArrayList<Node> fringe = new ArrayList<>();
         Node node = new Node(initialState);
         fringe.add(node);
@@ -196,7 +196,7 @@ public class AISystem implements IEntityProcessingService{
     }
 
     //Returns a two-dimensional array with nodes for each cell, and checks if each cell is walkable or not
-    private GridCell[][] setupStateSpace(World world){
+    public GridCell[][] setupStateSpace(World world){
         TiledMap tiledmap = world.getWorldMap().getMap();
         if (tiledmap != null) {
             TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tiledmap.getLayers().get("Walls");

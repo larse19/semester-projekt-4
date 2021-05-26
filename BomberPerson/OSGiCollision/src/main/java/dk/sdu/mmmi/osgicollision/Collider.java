@@ -36,8 +36,8 @@ public class Collider implements IPostEntityProcessingService{
                 }
                 
                 if (this.Collides(entity, colliderObject)){
-                    //System.out.println(colliderObject.getClass());
-                    //System.out.println(colliderObject.getPart(DamagePart.class) != null);
+//                    System.out.println(colliderObject.getClass());
+//                    System.out.println(colliderObject.getPart(DamagePart.class) != null);
                     DamagePart dp = colliderObject.getPart(DamagePart.class);
                     if(dp != null){
                         if(!dp.isCanDamageEnemies() && !entity.isPlayer()){
