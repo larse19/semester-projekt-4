@@ -5,6 +5,11 @@ import com.badlogic.gdx.InputAdapter;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.GameKeys;
 
+/**
+ * 
+ * @author jcs
+ */
+
 public class GameInputProcessor extends InputAdapter {
     private final GameData gameData;
 

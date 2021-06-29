@@ -9,6 +9,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 
+ * @author jan
+ */
+
 public class Entity extends ApplicationAdapter implements Serializable {
     private final UUID ID = UUID.randomUUID();
 

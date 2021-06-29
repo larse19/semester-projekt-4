@@ -31,6 +31,12 @@ import dk.sdu.mmmi.cbse.core.managers.GameInputProcessor;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 
+ * @author jan
+ * @author anders
+ */
+
 public class Game implements ApplicationListener {
 
     private static OrthographicCamera cam;

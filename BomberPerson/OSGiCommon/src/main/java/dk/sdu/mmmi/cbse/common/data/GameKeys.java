@@ -1,5 +1,10 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+/**
+ * 
+ * @author jan
+ */
+
 public class GameKeys {
 
     private static boolean[] keys;
